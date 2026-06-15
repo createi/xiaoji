@@ -3,12 +3,22 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import configuration from './config/configuration';
 
+// Prisma
+import { PrismaModule } from './prisma/prisma.module';
+
+// Modules
+import { AuthModule } from './modules/auth/auth.module';
+import { SystemModule } from './modules/system/system.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
+      envFilePath: [
+        `.env.${process.env.NODE_ENV || 'development'}`,
+        '../../.env.development',
+      ],
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -22,6 +32,9 @@ import configuration from './config/configuration';
         ],
       }),
     }),
+    PrismaModule,
+    AuthModule,
+    SystemModule,
   ],
   controllers: [],
   providers: [],

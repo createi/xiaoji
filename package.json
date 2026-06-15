@@ -27,7 +27,7 @@
     "start:prod": "NODE_ENV=production node apps/api/dist/main.js",
     "db:migrate:dev": "pnpm --filter @xiaoji/prisma migrate dev",
     "db:migrate:prod": "pnpm --filter @xiaoji/prisma migrate deploy",
-    "db:seed:dev": "pnpm --filter @xiaoji/prisma db seed",
+    "db:seed:dev": "npx ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\"}\" packages/prisma/seed.ts",
     "db:studio": "pnpm --filter @xiaoji/prisma studio",
     "docker:dev": "docker compose -f docker-compose.yml up -d",
     "docker:prod": "docker compose -f docker-compose.prod.yml up -d",

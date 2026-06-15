@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -18,12 +17,14 @@ model SystemAdmin {
   headPic   String   @default("") @map("head_pic") @db.VarChar(512)
   phone     String   @default("") @db.VarChar(16)
   level     Int      @default(0) // 0=超级管理员
+  roleId    Int?     @default(0) @map("role_id")
   status    Int      @default(1) // 1=正常 0=禁用
   lastTime  BigInt   @default(0) @map("last_time")
   lastIp    String   @default("") @map("last_ip") @db.VarChar(64)
   addTime   BigInt   @default(0) @map("add_time")
-  role      SystemRole?
+  role      SystemRole? @relation(fields: [roleId], references: [id])
 
+  @@unique([account])
   @@map("xj_system_admin")
 }
 
@@ -31,7 +32,7 @@ model SystemRole {
   id      Int    @id @default(autoincrement())
   name    String @db.VarChar(64)
   status  Int    @default(1)
-  rules   String @default("[]") @db.Text // JSON: number[]
+  rules   String @db.Text // JSON: number[]
   addTime BigInt @default(0) @map("add_time")
 
   admins SystemAdmin[]
@@ -97,7 +98,7 @@ model SystemLog {
   method  String @default("") @db.VarChar(16)
   ip      String @default("") @db.VarChar(64)
   addTime BigInt @default(0) @map("add_time")
-  content String @default("") @db.Text
+  content String @db.Text
 
   @@map("xj_system_log")
 }
@@ -224,7 +225,7 @@ model UserExtract {
   extractPrice  Decimal @map("extract_price") @db.Decimal(10, 2)
   extractType   Int     @map("extract_type")
   realName      String  @map("real_name") @db.VarChar(64)
-  extractInfo   String  @default("{}") @map("extract_info") @db.Text
+  extractInfo   String  @db.Text
   status        Int     @default(0) // 0=待审核 1=审核通过 2=已提现 3=审核失败
   addTime       BigInt  @default(0) @map("add_time")
   mark          String  @default("") @db.VarChar(512)
@@ -263,11 +264,11 @@ model UserNotice {
 model StoreProduct {
   id              Int      @id @default(autoincrement())
   merId           Int      @default(0) @map("mer_id")
-  cateId          String   @default("[]") @map("cate_id") @db.Text // JSON: number[]
+  cateId          String   @db.Text // JSON: number[]
   storeName       String   @map("store_name") @db.VarChar(256)
   storeInfo       String   @default("") @map("store_info") @db.VarChar(512)
   image           String   @db.VarChar(512)
-  sliderImage     String   @default("[]") @map("slider_image") @db.Text // JSON: string[]
+  sliderImage     String   @db.Text // JSON: string[]
   videoLink       String   @default("") @map("video_link") @db.VarChar(512)
   price           Decimal  @db.Decimal(10, 2)
   otPrice         Decimal  @default(0) @map("ot_price") @db.Decimal(10, 2)
@@ -297,7 +298,7 @@ model StoreProduct {
   postage         Decimal  @default(0) @db.Decimal(10, 2)
   freight         Int      @default(2)
   tempId          Int      @default(0) @map("temp_id")
-  logistics       String   @default("[1]") @db.Text // JSON: number[]
+  logistics       String   @db.Text // JSON: number[]
   minQty          Int      @default(1) @map("min_qty")
   isLimit         Int      @default(0) @map("is_limit")
   limitType       Int      @default(1) @map("limit_type")
@@ -305,16 +306,16 @@ model StoreProduct {
   keyword         String   @default("") @db.VarChar(256)
   commandWord     String   @default("") @map("command_word") @db.VarChar(512)
   recommendImage  String   @default("") @map("recommend_image") @db.VarChar(512)
-  labelId         String   @default("[]") @map("label_id") @db.Text // JSON: number[]
-  couponIds       String   @default("[]") @map("coupon_ids") @db.Text // JSON: number[]
-  activity        String   @default("[]") @db.Text // JSON: string[]
+  labelId         String   @db.Text // JSON: number[]
+  couponIds       String   @db.Text // JSON: number[]
+  activity        String   @db.Text // JSON: string[]
   virtualType     Int      @default(0) @map("virtual_type")
   isVirtual       Int      @default(0) @map("is_virtual")
-  fictitiousContent String @default("") @map("fictitious_content") @db.Text
+  fictitiousContent String @db.Text
   presale         Int      @default(0)
-  presaleTime     String   @default("[]") @map("presale_time") @db.Text // JSON: Date[]
+  presaleTime     String   @db.Text // JSON: Date[]
   presaleDay      Int      @default(0) @map("presale_day")
-  protectionList  String   @default("[]") @map("protection_list") @db.Text // JSON: number[]
+  protectionList  String   @db.Text // JSON: number[]
   addTime         BigInt   @default(0) @map("add_time")
   status          Int      @default(1)
 
@@ -340,7 +341,7 @@ model StoreProductAttrValue {
   weight            Decimal @default(0) @db.Decimal(10, 2)
   volume            Decimal @default(0) @db.Decimal(10, 2)
   isShow            Int     @default(1) @map("is_show")
-  fictitious        String  @default("") @db.Text
+  fictitious        String  @db.Text
   productAttrUnique String  @default("") @map("product_attr_unique") @db.VarChar(64)
 
   product StoreProduct @relation(fields: [productId], references: [id])
@@ -384,11 +385,11 @@ model StoreProductReply {
   serviceScore   Int    @default(5) @map("service_score")
   logisticsScore Int    @default(5) @map("logistics_score")
   context        String @db.Text
-  pics           String @default("[]") @db.Text // JSON: string[]
+  pics           String @db.Text // JSON: string[]
   addTime        BigInt @default(0) @map("add_time")
   status         Int    @default(1)
   isReply        Int    @default(0) @map("is_reply")
-  reply          String @default("") @db.Text
+  reply          String @db.Text
   replyTime      BigInt @default(0) @map("reply_time")
   nickname       String @default("") @db.VarChar(64)
   avatar         String @default("") @db.VarChar(512)
@@ -427,7 +428,7 @@ model StoreOrder {
   refundType     Int     @default(0) @map("refund_type")
   refundReason   String  @default("") @map("refund_reason") @db.VarChar(512)
   refundExplain  String  @default("") @map("refund_explain") @db.VarChar(512)
-  refundImg      String  @default("[]") @map("refund_img") @db.Text
+  refundImg      String  @db.Text
   shippingType   Int     @default(0) @map("shipping_type")
   deliveryType   String  @default("") @map("delivery_type") @db.VarChar(32)
   deliveryName   String  @default("") @map("delivery_name") @db.VarChar(64)
@@ -458,7 +459,7 @@ model StoreOrder {
   addTime        BigInt  @default(0) @map("add_time")
   payTime        BigInt  @default(0) @map("pay_time")
   isPostage      Int     @default(0) @map("is_postage")
-  customForm     String  @default("{}") @map("custom_form") @db.Text
+  customForm     String  @db.Text
   invoiceId      Int     @default(0) @map("invoice_id")
 
   cartInfos StoreOrderCartInfo[]
@@ -496,7 +497,7 @@ model StoreOrderRefund {
   refundReason     String  @default("") @map("refund_reason") @db.VarChar(512)
   refundPrice      Decimal @map("refund_price") @db.Decimal(10, 2)
   refundExplain    String  @default("") @map("refund_explain") @db.VarChar(512)
-  refundImg        String  @default("[]") @map("refund_img") @db.Text
+  refundImg        String  @db.Text
   refundExpress    String  @default("") @map("refund_express") @db.VarChar(128)
   refundExpressName String @default("") @map("refund_express_name") @db.VarChar(64)
   refundPhone      String  @default("") @map("refund_phone") @db.VarChar(16)
@@ -548,8 +549,8 @@ model StoreCoupon {
   status     Int    @default(1)
   sort       Int    @default(0)
   useType    Int    @default(1) @map("use_type")
-  categoryIds String @default("[]") @map("category_ids") @db.Text
-  productIds  String @default("[]") @map("product_ids") @db.Text
+  categoryIds String @db.Text
+  productIds  String @db.Text
   startTime  BigInt @default(0) @map("start_time")
   endTime    BigInt @default(0) @map("end_time")
   addTime    BigInt @default(0) @map("add_time")
@@ -675,7 +676,7 @@ model StoreBargain {
   startTime          BigInt  @default(0) @map("start_time")
   endTime            BigInt  @default(0) @map("end_time")
   addTime            BigInt  @default(0) @map("add_time")
-  rule               String  @default("") @db.Text
+  rule               String  @db.Text
   countPeopleAll     Int     @default(0) @map("count_people_all")
   countPeopleHelp    Int     @default(0) @map("count_people_help")
   countPeopleSuccess Int     @default(0) @map("count_people_success")
@@ -781,7 +782,7 @@ model Article {
   cid        Int
   title      String @db.VarChar(128)
   author     String @default("") @db.VarChar(64)
-  imageInput String @default("[]") @map("image_input") @db.Text
+  imageInput String @db.Text
   content    String @db.LongText
   digest     String @default("") @db.VarChar(512)
   visit      Int    @default(0)

@@ -1,27 +1,36 @@
 import { PrismaClient } from '@prisma/client';
+import * as fs from 'fs';
+import * as path from 'path';
+
+// 加载 .env.development
+const envPath = path.resolve(__dirname, '../../.env.development');
+if (fs.existsSync(envPath)) {
+  const lines = fs.readFileSync(envPath, 'utf-8').split('\n');
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed && !trimmed.startsWith('#')) {
+      const eqIndex = trimmed.indexOf('=');
+      if (eqIndex > 0) {
+        const key = trimmed.substring(0, eqIndex).trim();
+        let value = trimmed.substring(eqIndex + 1).trim();
+        if ((value.startsWith('"') && value.endsWith('"')) ||
+            (value.startsWith("'") && value.endsWith("'"))) {
+          value = value.slice(1, -1);
+        }
+        if (!process.env[key]) {
+          process.env[key] = value;
+        }
+      }
+    }
+  }
+}
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('🌱 Seeding database...');
 
-  // 创建超级管理员
-  const admin = await prisma.systemAdmin.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      id: 1,
-      account: 'admin',
-      realName: '超级管理员',
-      pwd: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-      level: 0,
-      status: 1,
-      addTime: BigInt(Date.now()),
-    },
-  });
-  console.log('✅ Created admin:', admin.account);
-
-  // 创建默认角色
+  // 先创建默认角色（admin 需要引用角色）
   const role = await prisma.systemRole.upsert({
     where: { id: 1 },
     update: {},
@@ -34,6 +43,23 @@ async function main() {
     },
   });
   console.log('✅ Created role:', role.name);
+
+  // 创建超级管理员
+  const admin = await prisma.systemAdmin.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      id: 1,
+      account: 'admin',
+      realName: '超级管理员',
+      pwd: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+      roleId: 1,
+      level: 0,
+      status: 1,
+      addTime: BigInt(Date.now()),
+    },
+  });
+  console.log('✅ Created admin:', admin.account);
 
   // 创建默认菜单
   const menus = [
