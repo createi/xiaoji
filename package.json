@@ -1,0 +1,39 @@
+{
+  "name": "xiaoji",
+  "version": "0.1.0",
+  "private": true,
+  "description": "xiaoji - CRMEB 复刻电商平台",
+  "engines": {
+    "node": ">=22.16.0",
+    "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma"
+    ]
+  },
+  "scripts": {
+    "dev": "pnpm --filter @xiaoji/api dev",
+    "dev:admin": "pnpm --filter @xiaoji/admin dev",
+    "dev:uniapp": "pnpm --filter @xiaoji/uniapp dev:h5",
+    "dev:all": "pnpm run --parallel dev dev:admin dev:uniapp",
+    "build": "pnpm --filter @xiaoji/api build && pnpm --filter @xiaoji/admin build",
+    "build:api": "pnpm --filter @xiaoji/api build",
+    "build:admin": "pnpm --filter @xiaoji/admin build",
+    "build:uniapp": "pnpm --filter @xiaoji/uniapp build",
+    "start:test": "NODE_ENV=test node apps/api/dist/main.js",
+    "start:prod": "NODE_ENV=production node apps/api/dist/main.js",
+    "db:migrate:dev": "pnpm --filter @xiaoji/prisma migrate dev",
+    "db:migrate:prod": "pnpm --filter @xiaoji/prisma migrate deploy",
+    "db:seed:dev": "pnpm --filter @xiaoji/prisma db seed",
+    "db:studio": "pnpm --filter @xiaoji/prisma studio",
+    "docker:dev": "docker compose -f docker-compose.yml up -d",
+    "docker:prod": "docker compose -f docker-compose.prod.yml up -d",
+    "test": "pnpm --filter @xiaoji/api test",
+    "test:e2e": "pnpm --filter @xiaoji/api test:e2e",
+    "lint": "pnpm -r lint",
+    "format": "pnpm -r format"
+  }
+}

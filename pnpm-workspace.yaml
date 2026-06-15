@@ -1,0 +1,6 @@
+packages:
+  - 'apps/api'
+  - 'apps/admin'
+  - 'packages/shared'
+  - 'packages/prisma'
+  - 'packages/utils'

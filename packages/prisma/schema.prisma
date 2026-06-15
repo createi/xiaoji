@@ -1,0 +1,841 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== 系统表 ====================
+
+model SystemAdmin {
+  id        Int      @id @default(autoincrement())
+  account   String   @db.VarChar(64)
+  realName  String   @map("real_name") @db.VarChar(64)
+  pwd       String   @db.VarChar(256)
+  headPic   String   @default("") @map("head_pic") @db.VarChar(512)
+  phone     String   @default("") @db.VarChar(16)
+  level     Int      @default(0) // 0=超级管理员
+  status    Int      @default(1) // 1=正常 0=禁用
+  lastTime  BigInt   @default(0) @map("last_time")
+  lastIp    String   @default("") @map("last_ip") @db.VarChar(64)
+  addTime   BigInt   @default(0) @map("add_time")
+  role      SystemRole?
+
+  @@map("xj_system_admin")
+}
+
+model SystemRole {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(64)
+  status  Int    @default(1)
+  rules   String @default("[]") @db.Text // JSON: number[]
+  addTime BigInt @default(0) @map("add_time")
+
+  admins SystemAdmin[]
+
+  @@map("xj_system_role")
+}
+
+model SystemMenus {
+  id        Int    @id @default(autoincrement())
+  pid       Int    @default(0)
+  title     String @db.VarChar(64)
+  icon      String @default("") @db.VarChar(128)
+  path      String @default("") @db.VarChar(128)
+  component String @default("") @db.VarChar(128)
+  sort      Int    @default(0)
+  status    Int    @default(1)
+  isShow    Int    @default(1) @map("is_show")
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_system_menus")
+}
+
+model SystemRoute {
+  id        Int    @id @default(autoincrement())
+  pid       Int    @default(0)
+  title     String @db.VarChar(64)
+  path      String @default("") @db.VarChar(128)
+  name      String @default("") @db.VarChar(128)
+  component String @default("") @db.VarChar(128)
+  sort      Int    @default(0)
+  status    Int    @default(1)
+  isShow    Int    @default(1) @map("is_show")
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_system_route")
+}
+
+model SystemConfig {
+  id     Int    @id @default(autoincrement())
+  tabId  Int    @map("tab_id")
+  name   String @db.VarChar(128)
+  value  String @db.Text
+  type   String @default("text") @db.VarChar(32)
+  info   String @default("") @db.VarChar(256)
+  status Int    @default(1)
+
+  @@map("xj_system_config")
+}
+
+model SystemConfigTab {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(64)
+  status Int    @default(1)
+
+  @@map("xj_system_config_tab")
+}
+
+model SystemLog {
+  id      Int    @id @default(autoincrement())
+  adminId Int    @map("admin_id")
+  type    String @default("") @db.VarChar(32)
+  url     String @default("") @db.VarChar(256)
+  method  String @default("") @db.VarChar(16)
+  ip      String @default("") @db.VarChar(64)
+  addTime BigInt @default(0) @map("add_time")
+  content String @default("") @db.Text
+
+  @@map("xj_system_log")
+}
+
+// ==================== 用户表 ====================
+
+model User {
+  uid             Int     @id @default(autoincrement())
+  account         String  @default("") @db.VarChar(64)
+  realName        String  @default("") @map("real_name") @db.VarChar(64)
+  nickname        String  @default("") @db.VarChar(64)
+  avatar          String  @default("") @db.VarChar(512)
+  phone           String  @default("") @db.VarChar(16)
+  sex             Int     @default(0) // 0=未知 1=男 2=女
+  birthday        BigInt  @default(0)
+  cardId          String  @default("") @map("card_id") @db.VarChar(256)
+  mark            String  @default("") @db.VarChar(512)
+  groupId         Int     @default(0) @map("group_id")
+  level           Int     @default(0)
+  agentLevel      Int     @default(0) @map("agent_level")
+  spreadOpen      Int     @default(0) @map("spread_open")
+  spreadUid       Int     @default(0) @map("spread_uid")
+  spreadTime      BigInt  @default(0) @map("spread_time")
+  userType        String  @default("h5") @map("user_type") @db.VarChar(32)
+  isPromoter      Int     @default(0) @map("is_promoter")
+  payCount        Int     @default(0) @map("pay_count")
+  payPrice        Decimal @default(0) @map("pay_price") @db.Decimal(10, 2)
+  nowMoney        Decimal @default(0) @map("now_money") @db.Decimal(10, 2)
+  brokeragePrice  Decimal @default(0) @map("brokerage_price") @db.Decimal(10, 2)
+  integral        Int     @default(0)
+  exp             Int     @default(0)
+  signNum         Int     @default(0) @map("sign_num")
+  status          Int     @default(1)
+  addTime         BigInt  @default(0) @map("add_time")
+  lastTime        BigInt  @default(0) @map("last_time")
+  lastIp          String  @default("") @map("last_ip") @db.VarChar(64)
+  partnerId       Int     @default(0) @map("partner_id")
+
+  addresses       UserAddress[]
+  bills           UserBill[]
+  signs           UserSign[]
+  notices         UserNotice[]
+
+  @@map("xj_user")
+}
+
+model UserAddress {
+  id        Int     @id @default(autoincrement())
+  uid       Int
+  realName  String  @map("real_name") @db.VarChar(64)
+  phone     String  @db.VarChar(16)
+  province  String  @db.VarChar(64)
+  city      String  @db.VarChar(64)
+  district  String  @db.VarChar(64)
+  detail    String  @db.VarChar(512)
+  isDefault Int     @default(0) @map("is_default")
+  addTime   BigInt  @default(0) @map("add_time")
+  latitude  Decimal @default(0) @db.Decimal(10, 7)
+  longitude Decimal @default(0) @db.Decimal(10, 7)
+
+  user User @relation(fields: [uid], references: [uid])
+
+  @@map("xj_user_address")
+}
+
+model UserLevel {
+  id                   Int    @id @default(autoincrement())
+  name                 String @db.VarChar(64)
+  image                String @default("") @db.VarChar(512)
+  grade                Int    @default(0)
+  oneBrokeragePercent  Int    @default(0) @map("one_brokerage_percent")
+  twoBrokeragePercent  Int    @default(0) @map("two_brokerage_percent")
+  taskTotalNum         Int    @default(0) @map("task_total_num")
+  taskNum              Int    @default(0) @map("task_num")
+  status               Int    @default(1)
+  isSpecial            Int    @default(0) @map("is_special")
+  addTime              BigInt @default(0) @map("add_time")
+
+  @@map("xj_user_level")
+}
+
+model UserGroup {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(64)
+  image   String @default("") @db.VarChar(512)
+  sort    Int    @default(0)
+  status  Int    @default(1)
+  isShow  Int    @default(1) @map("is_show")
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_user_group")
+}
+
+model UserLabel {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(64)
+  color   String @default("#1890ff") @db.VarChar(32)
+  sort    Int    @default(0)
+  status  Int    @default(1)
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_user_label")
+}
+
+model UserBill {
+  id          Int     @id @default(autoincrement())
+  uid         Int
+  type        Int     // 1=充值 2=消费 3=提现 4=佣金 5=其他
+  tradingType Int     @map("trading_type")
+  number      Decimal @db.Decimal(10, 2)
+  balance     Decimal @db.Decimal(10, 2)
+  mark        String  @default("") @db.VarChar(512)
+  relationId  Int     @default(0) @map("relation_id")
+  addTime     BigInt  @default(0) @map("add_time")
+
+  user User @relation(fields: [uid], references: [uid])
+
+  @@map("xj_user_bill")
+}
+
+model UserExtract {
+  id            Int     @id @default(autoincrement())
+  uid           Int
+  extractPrice  Decimal @map("extract_price") @db.Decimal(10, 2)
+  extractType   Int     @map("extract_type")
+  realName      String  @map("real_name") @db.VarChar(64)
+  extractInfo   String  @default("{}") @map("extract_info") @db.Text
+  status        Int     @default(0) // 0=待审核 1=审核通过 2=已提现 3=审核失败
+  addTime       BigInt  @default(0) @map("add_time")
+  mark          String  @default("") @db.VarChar(512)
+
+  @@map("xj_user_extract")
+}
+
+model UserSign {
+  id      Int    @id @default(autoincrement())
+  uid     Int
+  addTime BigInt @default(0) @map("add_time")
+  signNum Int    @default(0) @map("sign_num")
+  integral Int   @default(0)
+
+  user User @relation(fields: [uid], references: [uid])
+
+  @@map("xj_user_sign")
+}
+
+model UserNotice {
+  id      Int    @id @default(autoincrement())
+  uid     Int
+  title   String @db.VarChar(128)
+  content String @db.Text
+  addTime BigInt @default(0) @map("add_time")
+  type    Int    @default(0)
+  isSee   Int    @default(0) @map("is_see")
+
+  user User @relation(fields: [uid], references: [uid])
+
+  @@map("xj_user_notice")
+}
+
+// ==================== 商品表 ====================
+
+model StoreProduct {
+  id              Int      @id @default(autoincrement())
+  merId           Int      @default(0) @map("mer_id")
+  cateId          String   @default("[]") @map("cate_id") @db.Text // JSON: number[]
+  storeName       String   @map("store_name") @db.VarChar(256)
+  storeInfo       String   @default("") @map("store_info") @db.VarChar(512)
+  image           String   @db.VarChar(512)
+  sliderImage     String   @default("[]") @map("slider_image") @db.Text // JSON: string[]
+  videoLink       String   @default("") @map("video_link") @db.VarChar(512)
+  price           Decimal  @db.Decimal(10, 2)
+  otPrice         Decimal  @default(0) @map("ot_price") @db.Decimal(10, 2)
+  costPrice       Decimal  @default(0) @map("cost_price") @db.Decimal(10, 2)
+  vipPrice        Decimal  @default(0) @map("vip_price") @db.Decimal(10, 2)
+  vipProportion   Int      @default(0) @map("vip_proportion")
+  productType     Int      @default(0) @map("product_type")
+  giveIntegral    Int      @default(0) @map("give_integral")
+  stock           Int      @default(0)
+  sales           Int      @default(0)
+  unitName        String   @default("件") @map("unit_name") @db.VarChar(16)
+  sort            Int      @default(0)
+  isShow          Int      @default(1) @map("is_show")
+  isHot           Int      @default(0) @map("is_hot")
+  isBest          Int      @default(0) @map("is_best")
+  isNew           Int      @default(0) @map("is_new")
+  isGood          Int      @default(0) @map("is_good")
+  isPostage       Int      @default(0) @map("is_postage")
+  isVip           Int      @default(0) @map("is_vip")
+  isGift          Int      @default(0) @map("is_gift")
+  brokerage       Decimal  @default(0) @db.Decimal(10, 2)
+  brokerageTwo    Decimal  @default(0) @map("brokerage_two") @db.Decimal(10, 2)
+  specType        Int      @default(0) @map("spec_type")
+  barCode         String   @default("") @map("bar_code") @db.VarChar(64)
+  weight          Decimal  @default(0) @db.Decimal(10, 2)
+  volume          Decimal  @default(0) @db.Decimal(10, 2)
+  postage         Decimal  @default(0) @db.Decimal(10, 2)
+  freight         Int      @default(2)
+  tempId          Int      @default(0) @map("temp_id")
+  logistics       String   @default("[1]") @db.Text // JSON: number[]
+  minQty          Int      @default(1) @map("min_qty")
+  isLimit         Int      @default(0) @map("is_limit")
+  limitType       Int      @default(1) @map("limit_type")
+  limitNum        Int      @default(0) @map("limit_num")
+  keyword         String   @default("") @db.VarChar(256)
+  commandWord     String   @default("") @map("command_word") @db.VarChar(512)
+  recommendImage  String   @default("") @map("recommend_image") @db.VarChar(512)
+  labelId         String   @default("[]") @map("label_id") @db.Text // JSON: number[]
+  couponIds       String   @default("[]") @map("coupon_ids") @db.Text // JSON: number[]
+  activity        String   @default("[]") @db.Text // JSON: string[]
+  virtualType     Int      @default(0) @map("virtual_type")
+  isVirtual       Int      @default(0) @map("is_virtual")
+  fictitiousContent String @default("") @map("fictitious_content") @db.Text
+  presale         Int      @default(0)
+  presaleTime     String   @default("[]") @map("presale_time") @db.Text // JSON: Date[]
+  presaleDay      Int      @default(0) @map("presale_day")
+  protectionList  String   @default("[]") @map("protection_list") @db.Text // JSON: number[]
+  addTime         BigInt   @default(0) @map("add_time")
+  status          Int      @default(1)
+
+  attrs           StoreProductAttrValue[]
+  attrResults     StoreProductAttrResult[]
+  replies         StoreProductReply[]
+
+  @@map("xj_store_product")
+}
+
+model StoreProductAttrValue {
+  id                Int     @id @default(autoincrement())
+  productId         Int     @map("product_id")
+  sku               String  @default("") @db.VarChar(128)
+  unique            String  @db.VarChar(64)
+  image             String  @default("") @db.VarChar(512)
+  price             Decimal @db.Decimal(10, 2)
+  vipPrice          Decimal @default(0) @map("vip_price") @db.Decimal(10, 2)
+  costPrice         Decimal @default(0) @map("cost_price") @db.Decimal(10, 2)
+  otPrice           Decimal @default(0) @map("ot_price") @db.Decimal(10, 2)
+  stock             Int     @default(0)
+  barCode           String  @default("") @map("bar_code") @db.VarChar(64)
+  weight            Decimal @default(0) @db.Decimal(10, 2)
+  volume            Decimal @default(0) @db.Decimal(10, 2)
+  isShow            Int     @default(1) @map("is_show")
+  fictitious        String  @default("") @db.Text
+  productAttrUnique String  @default("") @map("product_attr_unique") @db.VarChar(64)
+
+  product StoreProduct @relation(fields: [productId], references: [id])
+
+  @@map("xj_store_product_attr_value")
+}
+
+model StoreProductAttrResult {
+  id        Int    @id @default(autoincrement())
+  productId Int    @map("product_id")
+  valueName String @map("value_name") @db.Text // JSON
+  resultType String @default("") @map("result_type") @db.VarChar(32)
+  sort      Int    @default(0)
+  image     String @default("") @db.VarChar(512)
+
+  product StoreProduct @relation(fields: [productId], references: [id])
+
+  @@map("xj_store_product_attr_result")
+}
+
+model StoreCategory {
+  id      Int    @id @default(autoincrement())
+  pid     Int    @default(0)
+  icon    String @default("") @db.VarChar(512)
+  image   String @default("") @db.VarChar(512)
+  isShow  Int    @default(1) @map("is_show")
+  isHome  Int    @default(0) @map("is_home")
+  sort    Int    @default(0)
+  name    String @db.VarChar(64)
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_category")
+}
+
+model StoreProductReply {
+  id             Int    @id @default(autoincrement())
+  uid            Int
+  productId      Int    @map("product_id")
+  orderId        String @map("order_id") @db.VarChar(64)
+  productScore   Int    @default(5) @map("product_score")
+  serviceScore   Int    @default(5) @map("service_score")
+  logisticsScore Int    @default(5) @map("logistics_score")
+  context        String @db.Text
+  pics           String @default("[]") @db.Text // JSON: string[]
+  addTime        BigInt @default(0) @map("add_time")
+  status         Int    @default(1)
+  isReply        Int    @default(0) @map("is_reply")
+  reply          String @default("") @db.Text
+  replyTime      BigInt @default(0) @map("reply_time")
+  nickname       String @default("") @db.VarChar(64)
+  avatar         String @default("") @db.VarChar(512)
+
+  product StoreProduct @relation(fields: [productId], references: [id])
+
+  @@map("xj_store_product_reply")
+}
+
+model StoreProductLabel {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(64)
+  sort    Int    @default(0)
+  status  Int    @default(1)
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_product_label")
+}
+
+// ==================== 订单表 ====================
+
+model StoreOrder {
+  id             Int     @id @default(autoincrement())
+  orderId        String  @map("order_id") @db.VarChar(64)
+  uid            Int
+  totalPrice     Decimal @map("total_price") @db.Decimal(10, 2)
+  payPrice       Decimal @map("pay_price") @db.Decimal(10, 2)
+  payPostage     Decimal @default(0) @map("pay_postage") @db.Decimal(10, 2)
+  couponPrice    Decimal @default(0) @map("coupon_price") @db.Decimal(10, 2)
+  useIntegral    Int     @default(0) @map("use_integral")
+  deductionPrice Decimal @default(0) @map("deduction_price") @db.Decimal(10, 2)
+  type           Int     @default(0)
+  status         Int     @default(0)
+  paid           Int     @default(0)
+  refundStatus   Int     @default(0) @map("refund_status")
+  refundType     Int     @default(0) @map("refund_type")
+  refundReason   String  @default("") @map("refund_reason") @db.VarChar(512)
+  refundExplain  String  @default("") @map("refund_explain") @db.VarChar(512)
+  refundImg      String  @default("[]") @map("refund_img") @db.Text
+  shippingType   Int     @default(0) @map("shipping_type")
+  deliveryType   String  @default("") @map("delivery_type") @db.VarChar(32)
+  deliveryName   String  @default("") @map("delivery_name") @db.VarChar(64)
+  deliveryId     String  @default("") @map("delivery_id") @db.VarChar(64)
+  orderType      Int     @default(0) @map("order_type")
+  realName       String  @default("") @map("real_name") @db.VarChar(64)
+  userPhone      String  @default("") @map("user_phone") @db.VarChar(16)
+  userAddress    String  @default("") @map("user_address") @db.VarChar(512)
+  storeId        Int     @default(0) @map("store_id")
+  clerkId        Int     @default(0) @map("clerk_id")
+  verifyCode     String  @default("") @map("verify_code") @db.VarChar(64)
+  pinkId         Int     @default(0) @map("pink_id")
+  seckillId      Int     @default(0) @map("seckill_id")
+  bargainId      Int     @default(0) @map("bargain_id")
+  combinationId  Int     @default(0) @map("combination_id")
+  discountId     Int     @default(0) @map("discount_id")
+  advanceId      Int     @default(0) @map("advance_id")
+  mark           String  @default("") @db.VarChar(512)
+  remark         String  @default("") @db.VarChar(512)
+  isCancel       Int     @default(0) @map("is_cancel")
+  isDel          Int     @default(0) @map("is_del")
+  isGift         Int     @default(0) @map("is_gift")
+  giftUid        Int     @default(0) @map("gift_uid")
+  giftMark       String  @default("") @map("gift_mark") @db.VarChar(512)
+  spreadUid      Int     @default(0) @map("spread_uid")
+  spreadNickname String  @default("") @map("spread_nickname") @db.VarChar(64)
+  divisionName   String  @default("") @map("division_name") @db.VarChar(64)
+  addTime        BigInt  @default(0) @map("add_time")
+  payTime        BigInt  @default(0) @map("pay_time")
+  isPostage      Int     @default(0) @map("is_postage")
+  customForm     String  @default("{}") @map("custom_form") @db.Text
+  invoiceId      Int     @default(0) @map("invoice_id")
+
+  cartInfos StoreOrderCartInfo[]
+  refunds   StoreOrderRefund[]
+
+  @@unique([orderId])
+  @@map("xj_store_order")
+}
+
+model StoreOrderCartInfo {
+  id          Int     @id @default(autoincrement())
+  orderId     String  @map("order_id") @db.VarChar(64)
+  productId   Int     @map("product_id")
+  cartId      Int     @default(0) @map("cart_id")
+  productNum  Int     @default(1) @map("product_num")
+  price       Decimal @db.Decimal(10, 2)
+  totalNum    Int     @default(1) @map("total_num")
+  payPrice    Decimal @db.Decimal(10, 2)
+  refundNum   Int     @default(0) @map("refund_num")
+  unique      String  @db.VarChar(64)
+  isGift      Int     @default(0) @map("is_gift")
+
+  order StoreOrder @relation(fields: [orderId], references: [orderId])
+
+  @@map("xj_store_order_cart_info")
+}
+
+model StoreOrderRefund {
+  id               Int     @id @default(autoincrement())
+  orderId          String  @map("order_id") @db.VarChar(64)
+  uid              Int
+  refundOrderId    String  @map("refund_order_id") @db.VarChar(64)
+  status           Int     @default(0)
+  refundType       Int     @default(1) @map("refund_type")
+  refundReason     String  @default("") @map("refund_reason") @db.VarChar(512)
+  refundPrice      Decimal @map("refund_price") @db.Decimal(10, 2)
+  refundExplain    String  @default("") @map("refund_explain") @db.VarChar(512)
+  refundImg        String  @default("[]") @map("refund_img") @db.Text
+  refundExpress    String  @default("") @map("refund_express") @db.VarChar(128)
+  refundExpressName String @default("") @map("refund_express_name") @db.VarChar(64)
+  refundPhone      String  @default("") @map("refund_phone") @db.VarChar(16)
+  addTime          BigInt  @default(0) @map("add_time")
+  refundTime       BigInt  @default(0) @map("refund_time")
+
+  order StoreOrder @relation(fields: [orderId], references: [orderId])
+
+  @@map("xj_store_order_refund")
+}
+
+model StoreCart {
+  id                 Int     @id @default(autoincrement())
+  uid                Int
+  productId          Int     @map("product_id")
+  productAttrUnique  String  @map("product_attr_unique") @db.VarChar(64)
+  cartNum            Int     @default(1) @map("cart_num")
+  isPay              Int     @default(0) @map("is_pay")
+  isDel              Int     @default(0) @map("is_del")
+  addTime            BigInt  @default(0) @map("add_time")
+
+  @@map("xj_store_cart")
+}
+
+model StoreOrderInvoice {
+  id             Int    @id @default(autoincrement())
+  uid            Int
+  orderId        String @map("order_id") @db.VarChar(64)
+  invoiceType    Int    @default(1) @map("invoice_type")
+  title          String @db.VarChar(128)
+  taxNo          String @default("") @map("tax_no") @db.VarChar(64)
+  email          String @default("") @db.VarChar(128)
+  invoiceContent String @default("") @map("invoice_content") @db.VarChar(128)
+  addTime        BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_order_invoice")
+}
+
+// ==================== 营销表 ====================
+
+model StoreCoupon {
+  id         Int    @id @default(autoincrement())
+  title      String @db.VarChar(128)
+  type       Int    @default(1) // 1=满减 2=折扣 3=无门槛
+  value      Decimal @db.Decimal(10, 2)
+  minPrice   Decimal @default(0) @map("min_price") @db.Decimal(10, 2)
+  isSub      Int    @default(0) @map("is_sub")
+  isShow     Int    @default(1) @map("is_show")
+  status     Int    @default(1)
+  sort       Int    @default(0)
+  useType    Int    @default(1) @map("use_type")
+  categoryIds String @default("[]") @map("category_ids") @db.Text
+  productIds  String @default("[]") @map("product_ids") @db.Text
+  startTime  BigInt @default(0) @map("start_time")
+  endTime    BigInt @default(0) @map("end_time")
+  addTime    BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_coupon")
+}
+
+model StoreCouponIssue {
+  id           Int     @id @default(autoincrement())
+  couponId     Int     @map("coupon_id")
+  couponType   Int     @default(0) @map("coupon_type")
+  useMinPrice  Decimal @default(0) @map("use_min_price") @db.Decimal(10, 2)
+  endTime      BigInt  @default(0) @map("end_time")
+  isPermanent  Int     @default(0) @map("is_permanent")
+  stayLimit    Int     @default(0) @map("stay_limit")
+  type         Int     @default(1)
+  giveType     Int     @default(1) @map("give_type")
+  status       Int     @default(1)
+  used         Int     @default(0)
+  received     Int     @default(0)
+
+  @@map("xj_store_coupon_issue")
+}
+
+model StoreCouponUser {
+  id            Int    @id @default(autoincrement())
+  uid           Int
+  couponId      Int    @map("coupon_id")
+  couponIssueId Int    @map("coupon_issue_id")
+  status        Int    @default(0) // 0=未使用 1=已使用 2=已过期
+  usedTime      BigInt @default(0) @map("used_time")
+  addTime       BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_coupon_user")
+}
+
+model StoreSeckill {
+  id           Int     @id @default(autoincrement())
+  title        String  @db.VarChar(128)
+  activityName String  @default("") @map("activity_name") @db.VarChar(128)
+  image        String  @default("") @db.VarChar(512)
+  price        Decimal @db.Decimal(10, 2)
+  costPrice    Decimal @default(0) @map("cost_price") @db.Decimal(10, 2)
+  productPrice Decimal @default(0) @map("product_price") @db.Decimal(10, 2)
+  stock        Int     @default(0)
+  quota        Int     @default(0)
+  total        Int     @default(0)
+  sort         Int     @default(0)
+  status       Int     @default(1)
+  productId    Int     @map("product_id")
+  startTime    BigInt  @default(0) @map("start_time")
+  endTime      BigInt  @default(0) @map("end_time")
+  addTime      BigInt  @default(0) @map("add_time")
+
+  @@map("xj_store_seckill")
+}
+
+model StoreSeckillTime {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(64)
+  start  String @db.VarChar(8)
+  stop   String @db.VarChar(8)
+  sort   Int    @default(0)
+  status Int    @default(1)
+
+  @@map("xj_store_seckill_time")
+}
+
+model StoreCombination {
+  id          Int     @id @default(autoincrement())
+  title       String  @db.VarChar(128)
+  image       String  @default("") @db.VarChar(512)
+  info        String  @default("") @db.VarChar(512)
+  price       Decimal @db.Decimal(10, 2)
+  otPrice     Decimal @default(0) @map("ot_price") @db.Decimal(10, 2)
+  costPrice   Decimal @default(0) @map("cost_price") @db.Decimal(10, 2)
+  peopleNum   Int     @default(2) @map("people_num")
+  quota       Int     @default(0)
+  total       Int     @default(0)
+  sort        Int     @default(0)
+  isShow      Int     @default(1) @map("is_show")
+  productId   Int     @map("product_id")
+  startTime   BigInt  @default(0) @map("start_time")
+  endTime     BigInt  @default(0) @map("end_time")
+  addTime     BigInt  @default(0) @map("add_time")
+
+  @@map("xj_store_combination")
+}
+
+model StorePink {
+  id             Int     @id @default(autoincrement())
+  uid            Int
+  nickname       String  @default("") @db.VarChar(64)
+  avatar         String  @default("") @db.VarChar(512)
+  pid            Int     @default(0)
+  puid           Int     @default(0)
+  combinationId  Int     @map("combination_id")
+  orderId        String  @default("") @map("order_id") @db.VarChar(64)
+  totalNum       Int     @default(0) @map("total_num")
+  totalPrice     Decimal @default(0) @map("total_price") @db.Decimal(10, 2)
+  peopleNum      Int     @default(0) @map("people_num")
+  status         Int     @default(0) // 0=拼团中 1=成功 2=失败
+  addTime        BigInt  @default(0) @map("add_time")
+  stopTime       BigInt  @default(0) @map("stop_time")
+
+  @@map("xj_store_pink")
+}
+
+model StoreBargain {
+  id                 Int     @id @default(autoincrement())
+  title              String  @db.VarChar(128)
+  image              String  @default("") @db.VarChar(512)
+  price              Decimal @db.Decimal(10, 2)
+  costPrice          Decimal @default(0) @map("cost_price") @db.Decimal(10, 2)
+  productPrice       Decimal @default(0) @map("product_price") @db.Decimal(10, 2)
+  minPrice           Decimal @default(0) @map("min_price") @db.Decimal(10, 2)
+  bargainStock       Int     @default(0) @map("bargain_stock")
+  quota              Int     @default(0)
+  total              Int     @default(0)
+  sort               Int     @default(0)
+  status             Int     @default(1)
+  productId          Int     @map("product_id")
+  startTime          BigInt  @default(0) @map("start_time")
+  endTime            BigInt  @default(0) @map("end_time")
+  addTime            BigInt  @default(0) @map("add_time")
+  rule               String  @default("") @db.Text
+  countPeopleAll     Int     @default(0) @map("count_people_all")
+  countPeopleHelp    Int     @default(0) @map("count_people_help")
+  countPeopleSuccess Int     @default(0) @map("count_people_success")
+
+  @@map("xj_store_bargain")
+}
+
+model StoreIntegral {
+  id        Int     @id @default(autoincrement())
+  title     String  @db.VarChar(128)
+  image     String  @default("") @db.VarChar(512)
+  price     Int     @default(0)
+  costPrice Decimal @default(0) @map("cost_price") @db.Decimal(10, 2)
+  vipPrice  Decimal @default(0) @map("vip_price") @db.Decimal(10, 2)
+  stock     Int     @default(0)
+  quota     Int     @default(0)
+  total     Int     @default(0)
+  sales     Int     @default(0)
+  sort      Int     @default(0)
+  status    Int     @default(1)
+  productId Int     @map("product_id")
+  addTime   BigInt  @default(0) @map("add_time")
+
+  @@map("xj_store_integral")
+}
+
+model SystemSignReward {
+  id     Int @id @default(autoincrement())
+  day    Int @default(1)
+  number Int @default(0)
+  type   Int @default(1) // 1=连续 2=累计
+  status Int @default(1)
+  sort   Int @default(0)
+
+  @@map("xj_system_sign_reward")
+}
+
+// ==================== 分销表 ====================
+
+model AgentLevel {
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(64)
+  image        String  @default("") @db.VarChar(512)
+  oneBrokerage Decimal @default(0) @map("one_brokerage") @db.Decimal(10, 2)
+  twoBrokerage Decimal @default(0) @map("two_brokerage") @db.Decimal(10, 2)
+  sort         Int     @default(0)
+  status       Int     @default(1)
+  addTime      BigInt  @default(0) @map("add_time")
+
+  @@map("xj_agent_level")
+}
+
+model DivisionAgentApply {
+  id      Int    @id @default(autoincrement())
+  uid     Int
+  name    String @db.VarChar(64)
+  phone   String @db.VarChar(16)
+  levelId Int    @map("level_id")
+  status  Int    @default(0) // 0=待审核 1=通过 2=拒绝
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_division_agent_apply")
+}
+
+model SpreadApply {
+  id      Int    @id @default(autoincrement())
+  uid     Int
+  status  Int    @default(0)
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_spread_apply")
+}
+
+// ==================== 物流表 ====================
+
+model ShippingTemplate {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(64)
+  type    Int    @default(1) // 1=按件 2=按重量 3=按体积
+  appoint Int    @default(0)
+  sort    Int    @default(0)
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_shipping_templates")
+}
+
+model Express {
+  id      Int    @id @default(autoincrement())
+  name    String @db.VarChar(64)
+  code    String @db.VarChar(64)
+  url     String @default("") @db.VarChar(256)
+  sort    Int    @default(0)
+  isShow  Int    @default(1) @map("is_show")
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_express")
+}
+
+// ==================== CMS 表 ====================
+
+model Article {
+  id         Int    @id @default(autoincrement())
+  cid        Int
+  title      String @db.VarChar(128)
+  author     String @default("") @db.VarChar(64)
+  imageInput String @default("[]") @map("image_input") @db.Text
+  content    String @db.LongText
+  digest     String @default("") @db.VarChar(512)
+  visit      Int    @default(0)
+  sort       Int    @default(0)
+  status     Int    @default(1)
+  isHot      Int    @default(0) @map("is_hot")
+  isBest     Int    @default(0) @map("is_best")
+  isNew      Int    @default(0) @map("is_new")
+  addTime    BigInt @default(0) @map("add_time")
+
+  @@map("xj_article")
+}
+
+model ArticleCategory {
+  id      Int    @id @default(autoincrement())
+  pid     Int    @default(0)
+  name    String @db.VarChar(64)
+  sort    Int    @default(0)
+  status  Int    @default(1)
+  addTime BigInt @default(0) @map("add_time")
+
+  @@map("xj_article_category")
+}
+
+// ==================== 门店表 ====================
+
+model SystemStore {
+  id              Int     @id @default(autoincrement())
+  image           String  @default("") @db.VarChar(512)
+  name            String  @db.VarChar(64)
+  phone           String  @db.VarChar(16)
+  address         String  @default("") @db.VarChar(256)
+  detailedAddress String  @default("") @map("detailed_address") @db.VarChar(512)
+  latitude        Decimal @default(0) @db.Decimal(10, 7)
+  longitude       Decimal @default(0) @db.Decimal(10, 7)
+  dayTime         String  @default("") @map("day_time") @db.VarChar(128)
+  isShow          Int     @default(1) @map("is_show")
+  sort            Int     @default(0)
+  addTime         BigInt  @default(0) @map("add_time")
+
+  staffs SystemStoreStaff[]
+
+  @@map("xj_system_store")
+}
+
+model SystemStoreStaff {
+  id      Int    @id @default(autoincrement())
+  uid     Int
+  storeId Int    @map("store_id")
+  role    String @default("") @db.VarChar(32)
+  status  Int    @default(1)
+  addTime BigInt @default(0) @map("add_time")
+
+  store SystemStore @relation(fields: [storeId], references: [id])
+
+  @@map("xj_system_store_staff")
+}
