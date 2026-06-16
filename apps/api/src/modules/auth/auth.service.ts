@@ -1,14 +1,90 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../../prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
+import * as svgCaptcha from 'svg-captcha';
 
 @Injectable()
 export class AuthService {
+  // 验证码存储（生产环境应使用 Redis）
+  private captchaStore = new Map<string, { text: string; expires: number }>();
+
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
   ) {}
+
+  /**
+   * 生成验证码
+   */
+  generateCaptcha() {
+    const captcha = svgCaptcha.create({
+      size: 4,
+      ignoreChars: '0o1il', // 排除容易混淆的字符
+      noise: 3,
+      color: true,
+      background: '#f5f5f5',
+    });
+
+    const key = `captcha_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    const expires = Date.now() + 10 * 60 * 1000; // 10分钟过期
+
+    // 存储验证码（不区分大小写）
+    this.captchaStore.set(key, {
+      text: captcha.text.toLowerCase(),
+      expires,
+    });
+
+    // 清理过期的验证码
+    this.cleanExpiredCaptchas();
+
+    return {
+      image: `data:image/svg+xml;base64,${Buffer.from(captcha.data).toString('base64')}`,
+      key,
+    };
+  }
+
+  /**
+   * 验证验证码
+   */
+  verifyCaptcha(key: string, code: string): boolean {
+    if (!key || !code) {
+      return false;
+    }
+
+    const captchaData = this.captchaStore.get(key);
+    if (!captchaData) {
+      return false;
+    }
+
+    // 检查是否过期
+    if (Date.now() > captchaData.expires) {
+      this.captchaStore.delete(key);
+      return false;
+    }
+
+    // 验证（不区分大小写）
+    const isValid = captchaData.text === code.toLowerCase();
+
+    // 验证成功后删除（一次性使用）
+    if (isValid) {
+      this.captchaStore.delete(key);
+    }
+
+    return isValid;
+  }
+
+  /**
+   * 清理过期的验证码
+   */
+  private cleanExpiredCaptchas() {
+    const now = Date.now();
+    for (const [key, data] of this.captchaStore.entries()) {
+      if (now > data.expires) {
+        this.captchaStore.delete(key);
+      }
+    }
+  }
 
   /**
    * 管理员登录
@@ -141,6 +217,7 @@ export class AuthService {
         pwd: hashedPassword,
         phone: data.phone || '',
         headPic: data.head_pic || '',
+        roleId: data.role_id || null,
         level: 0,
         status: 1,
         addTime: BigInt(Date.now()),
@@ -173,6 +250,7 @@ export class AuthService {
         ...(data.phone !== undefined && { phone: data.phone }),
         ...(data.head_pic !== undefined && { headPic: data.head_pic }),
         ...(data.status !== undefined && { status: data.status }),
+        ...(data.role_id !== undefined && { roleId: data.role_id }),
       },
     });
   }
@@ -233,7 +311,7 @@ export class AuthService {
     ]);
 
     return {
-      data: list.map((item) => ({
+      data: list.map((item: any) => ({
         id: item.id,
         account: item.account,
         real_name: item.realName,

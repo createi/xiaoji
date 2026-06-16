@@ -27,7 +27,7 @@ export class RoleService {
     ]);
 
     return {
-      data: list.map((item) => ({
+      data: list.map((item: any) => ({
         id: item.id,
         name: item.name,
         status: item.status,
@@ -49,7 +49,7 @@ export class RoleService {
       orderBy: { id: 'asc' },
     });
 
-    return list.map((item) => ({
+    return list.map((item: any) => ({
       id: item.id,
       name: item.name,
     }));

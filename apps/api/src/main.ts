@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,11 +14,13 @@ async function bootstrap() {
   const corsOrigin = configService.get<string>('CORS_ORIGIN') || '*';
 
   app.enableCors({
-    origin: corsOrigin.split(','),
+    origin: corsOrigin === '*' ? true : corsOrigin.split(','),
     credentials: true,
   });
 
   app.setGlobalPrefix('api');
+
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   app.useGlobalPipes(
     new ValidationPipe({

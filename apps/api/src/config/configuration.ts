@@ -31,4 +31,7 @@ export default () => ({
   cache: {
     enabled: process.env.CACHE_ENABLED === 'true',
   },
+  captcha: {
+    enabled: process.env.CAPTCHA_ENABLED === 'true',
+  },
 });

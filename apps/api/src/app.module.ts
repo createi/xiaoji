@@ -9,6 +9,18 @@ import { PrismaModule } from './prisma/prisma.module';
 // Modules
 import { AuthModule } from './modules/auth/auth.module';
 import { SystemModule } from './modules/system/system.module';
+import { UserModule } from './modules/user/user.module';
+import { ProductModule } from './modules/product/product.module';
+import { OrderModule } from './modules/order/order.module';
+import { UploadModule } from './modules/upload/upload.module';
+import { MarketingModule } from './modules/marketing/marketing.module';
+import { AgentModule } from './modules/agent/agent.module';
+import { FinanceModule } from './modules/finance/finance.module';
+import { CmsModule } from './modules/cms/cms.module';
+import { StatisticModule } from './modules/statistic/statistic.module';
+import { ShippingModule } from './modules/shipping/shipping.module';
+import { WebSocketModule } from './modules/websocket/websocket.module';
+import { QueueModule } from './modules/queue/queue.module';
 
 @Module({
   imports: [
@@ -35,6 +47,18 @@ import { SystemModule } from './modules/system/system.module';
     PrismaModule,
     AuthModule,
     SystemModule,
+    UserModule,
+    ProductModule,
+    OrderModule,
+    UploadModule,
+    MarketingModule,
+    AgentModule,
+    FinanceModule,
+    CmsModule,
+    StatisticModule,
+    ShippingModule,
+    WebSocketModule,
+    QueueModule,
   ],
   controllers: [],
   providers: [],

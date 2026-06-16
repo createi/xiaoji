@@ -3,7 +3,7 @@ import { message } from 'ant-design-vue';
 import router from '@/router';
 
 const request = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
   timeout: 15000,
 });
 

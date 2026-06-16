@@ -5,6 +5,7 @@ interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string;
   readonly VITE_STORAGE_URL: string;
   readonly VITE_WEBSOCKET_URL: string;
+  readonly VITE_CAPTCHA_ENABLED: string;
 }
 
 interface ImportMeta {

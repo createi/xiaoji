@@ -11,6 +11,9 @@
     "db:seed": "pnpm exec prisma db seed",
     "studio": "pnpm exec prisma studio"
   },
+  "prisma": {
+    "schema": "schema.prisma"
+  },
   "dependencies": {
     "@prisma/client": "^6.5.0"
   },

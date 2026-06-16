@@ -8,6 +8,7 @@ import {
   Param,
   Query,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -48,7 +49,7 @@ export class RoleController {
 
   @Get(':id')
   @ApiOperation({ summary: '角色详情' })
-  async getDetail(@Param('id') id: number) {
+  async getDetail(@Param('id', ParseIntPipe) id: number) {
     const result = await this.roleService.getDetail(id);
     return {
       status: 200,
@@ -71,7 +72,7 @@ export class RoleController {
   @Put(':id')
   @ApiOperation({ summary: '更新角色' })
   async update(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() body: { name?: string; status?: number; rules?: number[] },
   ) {
     const result = await this.roleService.update(id, body);
@@ -84,7 +85,7 @@ export class RoleController {
 
   @Delete(':id')
   @ApiOperation({ summary: '删除角色' })
-  async delete(@Param('id') id: number) {
+  async delete(@Param('id', ParseIntPipe) id: number) {
     await this.roleService.delete(id);
     return {
       status: 200,

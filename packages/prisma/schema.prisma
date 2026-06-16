@@ -318,6 +318,7 @@ model StoreProduct {
   protectionList  String   @db.Text // JSON: number[]
   addTime         BigInt   @default(0) @map("add_time")
   status          Int      @default(1)
+  isDel           Int      @default(0) @map("is_del")
 
   attrs           StoreProductAttrValue[]
   attrResults     StoreProductAttrResult[]

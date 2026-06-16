@@ -35,7 +35,9 @@
             </template>
           </a-input-password>
         </a-form-item>
+        <!-- 验证码（根据环境变量决定是否显示） -->
         <a-form-item
+          v-if="captchaEnabled"
           name="captcha"
           :rules="[{ required: true, message: '请输入验证码' }]"
         >
@@ -72,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 import {
@@ -90,6 +92,11 @@ const loading = ref(false);
 const captchaImg = ref('');
 const captchaKey = ref('');
 
+// 根据环境变量判断是否启用验证码
+const captchaEnabled = computed(() => {
+  return import.meta.env.VITE_CAPTCHA_ENABLED === 'true';
+});
+
 const formState = ref({
   account: '',
   password: '',
@@ -97,7 +104,10 @@ const formState = ref({
 });
 
 onMounted(() => {
-  refreshCaptcha();
+  // 如果启用了验证码，获取验证码
+  if (captchaEnabled.value) {
+    refreshCaptcha();
+  }
 });
 
 async function refreshCaptcha() {
@@ -113,15 +123,26 @@ async function refreshCaptcha() {
 async function handleLogin() {
   loading.value = true;
   try {
-    const res: any = await adminLogin({
-      ...formState.value,
-      key: captchaKey.value,
-    });
+    const loginData: any = {
+      account: formState.value.account,
+      password: formState.value.password,
+    };
+
+    // 如果启用了验证码，添加验证码字段
+    if (captchaEnabled.value) {
+      loginData.captcha = formState.value.captcha;
+      loginData.key = captchaKey.value;
+    }
+
+    const res: any = await adminLogin(loginData);
     userStore.setToken(res.data.token);
     message.success('登录成功');
     router.push('/dashboard');
   } catch {
-    refreshCaptcha();
+    // 如果启用了验证码，刷新验证码
+    if (captchaEnabled.value) {
+      refreshCaptcha();
+    }
   } finally {
     loading.value = false;
   }

@@ -7,12 +7,15 @@ import {
   Body,
   Req,
   Query,
+  Param,
+  ParseIntPipe,
   UseGuards,
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
+import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AdminLoginDto, CreateAdminDto, UpdateAdminDto, ChangePasswordDto } from './dto/auth.dto';
@@ -20,12 +23,50 @@ import { AdminLoginDto, CreateAdminDto, UpdateAdminDto, ChangePasswordDto } from
 @ApiTags('认证管理')
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
+
+  @Get('captcha')
+  @ApiOperation({ summary: '获取验证码' })
+  @HttpCode(HttpStatus.OK)
+  async getCaptcha() {
+    const result = this.authService.generateCaptcha();
+    return {
+      status: 200,
+      message: '获取成功',
+      data: result,
+    };
+  }
 
   @Post('admin/login')
   @ApiOperation({ summary: '管理员登录' })
   @HttpCode(HttpStatus.OK)
   async adminLogin(@Body() dto: AdminLoginDto, @Req() req: Request) {
+    // 检查是否启用验证码
+    const captchaEnabled = this.configService.get<boolean>('captcha.enabled', false);
+
+    // 如果启用了验证码，验证验证码
+    if (captchaEnabled) {
+      if (!dto.captcha || !dto.key) {
+        return {
+          status: 400,
+          message: '请输入验证码',
+          data: null,
+        };
+      }
+
+      const isValid = this.authService.verifyCaptcha(dto.key, dto.captcha);
+      if (!isValid) {
+        return {
+          status: 400,
+          message: '验证码错误',
+          data: null,
+        };
+      }
+    }
+
     const ip = req.ip || req.socket.remoteAddress || '';
     const result = await this.authService.adminLogin(dto.account, dto.password, ip);
     return {
@@ -88,8 +129,11 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: '更新管理员' })
-  async updateAdmin(@Req() req: any, @Body() dto: UpdateAdminDto) {
-    const result = await this.authService.updateAdmin(req.params.id, dto);
+  async updateAdmin(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateAdminDto,
+  ) {
+    const result = await this.authService.updateAdmin(id, dto);
     return {
       status: 200,
       message: '更新成功',
@@ -113,8 +157,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: '删除管理员' })
-  async deleteAdmin(@Req() req: any) {
-    await this.authService.deleteAdmin(req.params.id);
+  async deleteAdmin(@Param('id', ParseIntPipe) id: number) {
+    await this.authService.deleteAdmin(id);
     return {
       status: 200,
       message: '删除成功',

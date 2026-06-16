@@ -12,6 +12,16 @@ export class AdminLoginDto {
   @IsNotEmpty({ message: '请输入密码' })
   @MinLength(6, { message: '密码至少6位' })
   password!: string;
+
+  @ApiPropertyOptional({ description: '验证码' })
+  @IsOptional()
+  @IsString()
+  captcha?: string;
+
+  @ApiPropertyOptional({ description: '验证码key' })
+  @IsOptional()
+  @IsString()
+  key?: string;
 }
 
 export class CreateAdminDto {

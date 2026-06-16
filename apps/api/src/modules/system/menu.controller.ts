@@ -8,6 +8,7 @@ import {
   Param,
   Query,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -72,7 +73,7 @@ export class MenuController {
   @Put(':id')
   @ApiOperation({ summary: '更新菜单' })
   async update(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body()
     body: {
       pid?: number;
@@ -95,7 +96,7 @@ export class MenuController {
 
   @Delete(':id')
   @ApiOperation({ summary: '删除菜单' })
-  async delete(@Param('id') id: number) {
+  async delete(@Param('id', ParseIntPipe) id: number) {
     await this.menuService.delete(id);
     return {
       status: 200,
