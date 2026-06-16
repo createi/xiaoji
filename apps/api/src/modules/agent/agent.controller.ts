@@ -29,8 +29,11 @@ export class AgentController {
   // 分销等级
   @Get('level/list')
   @ApiOperation({ summary: '分销等级列表' })
-  async getLevelList(@Query('page') page?: number, @Query('limit') limit?: number) {
-    const result = await this.levelService.getList({ page, limit });
+  async getLevelList(@Query('page') page?: string, @Query('limit') limit?: string) {
+    const result = await this.levelService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 
@@ -73,11 +76,15 @@ export class AgentController {
   @Get('apply/list')
   @ApiOperation({ summary: '分销申请列表' })
   async getApplyList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
-    @Query('status') status?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('status') status?: string,
   ) {
-    const result = await this.applyService.getList({ page, limit, status });
+    const result = await this.applyService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      status: status ? Number(status) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

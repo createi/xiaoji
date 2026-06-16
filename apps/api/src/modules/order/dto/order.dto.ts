@@ -1,24 +1,29 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class QueryOrderDto {
   @ApiPropertyOptional({ description: '页码' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   page?: number;
 
   @ApiPropertyOptional({ description: '每页数量' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   limit?: number;
 
   @ApiPropertyOptional({ description: '订单状态' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   status?: number;
 
   @ApiPropertyOptional({ description: '订单类型' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   type?: number;
 

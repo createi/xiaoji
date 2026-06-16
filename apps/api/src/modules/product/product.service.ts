@@ -7,11 +7,12 @@ export class ProductService {
   constructor(private prisma: PrismaService) {}
 
   async getList(query: QueryProductDto) {
-    const { page = 1, limit = 10, store_name, product_type, cate_id, spec_type, is_show, start_time, end_time } = query;
+    const { page = 1, limit = 10, keyword, store_name, product_type, cate_id, spec_type, is_show, status, start_time, end_time } = query;
     const where: any = { isDel: 0 };
 
-    if (store_name) {
-      where.storeName = { contains: store_name };
+    const searchName = keyword || store_name;
+    if (searchName) {
+      where.storeName = { contains: searchName };
     }
     if (product_type !== undefined) {
       where.productType = product_type;
@@ -22,8 +23,9 @@ export class ProductService {
     if (spec_type !== undefined) {
       where.specType = spec_type;
     }
-    if (is_show !== undefined) {
-      where.isShow = is_show;
+    const showStatus = is_show !== undefined ? is_show : status;
+    if (showStatus !== undefined) {
+      where.isShow = showStatus;
     }
     if (start_time || end_time) {
       where.addTime = {};
@@ -59,7 +61,7 @@ export class ProductService {
         is_hot: item.isHot,
         is_best: item.isBest,
         is_new: item.isNew,
-        add_time: item.addTime,
+        add_time: item.addTime ? Number(item.addTime) : null,
       })),
       total,
       page,

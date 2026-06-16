@@ -25,11 +25,15 @@ export class CategoryController {
   @Get('list')
   @ApiOperation({ summary: '分类列表' })
   async getList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('name') name?: string,
   ) {
-    const result = await this.categoryService.getList({ page, limit, name });
+    const result = await this.categoryService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      name,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

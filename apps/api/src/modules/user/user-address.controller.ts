@@ -25,11 +25,15 @@ export class UserAddressController {
   @Get('list')
   @ApiOperation({ summary: '地址列表' })
   async getList(
-    @Query('uid') uid?: number,
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('uid') uid?: string,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
   ) {
-    const result = await this.userAddressService.getList({ uid, page, limit });
+    const result = await this.userAddressService.getList({
+      uid: uid ? Number(uid) : undefined,
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

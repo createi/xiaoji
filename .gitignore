@@ -52,3 +52,6 @@ docker/ssl/*.key
 # UniApp
 apps/uniapp/unpackage/
 apps/uniapp/dist/
+
+# Playwright MCP
+.playwright-mcp/

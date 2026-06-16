@@ -1,14 +1,17 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNumber, IsEnum, Min, Max } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class QueryUserDto {
   @ApiPropertyOptional({ description: '页码' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   page?: number;
 
   @ApiPropertyOptional({ description: '每页数量' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   limit?: number;
 
@@ -24,21 +27,25 @@ export class QueryUserDto {
 
   @ApiPropertyOptional({ description: '会员等级' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   level?: number;
 
   @ApiPropertyOptional({ description: '用户分组' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   group_id?: number;
 
   @ApiPropertyOptional({ description: '分销等级' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   agent_level?: number;
 
   @ApiPropertyOptional({ description: '是否推广员 0=否 1=是' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   is_promoter?: number;
 

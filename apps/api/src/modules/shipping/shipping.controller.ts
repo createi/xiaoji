@@ -34,8 +34,11 @@ export class ShippingController {
   // 运费模板
   @Get('template/list')
   @ApiOperation({ summary: '运费模板列表' })
-  async getTemplateList(@Query('page') page?: number, @Query('limit') limit?: number) {
-    const result = await this.templateService.getList({ page, limit });
+  async getTemplateList(@Query('page') page?: string, @Query('limit') limit?: string) {
+    const result = await this.templateService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 
@@ -70,8 +73,11 @@ export class ShippingController {
   // 快递公司
   @Get('express/list')
   @ApiOperation({ summary: '快递公司列表' })
-  async getExpressList(@Query('page') page?: number, @Query('limit') limit?: number) {
-    const result = await this.expressService.getList({ page, limit });
+  async getExpressList(@Query('page') page?: string, @Query('limit') limit?: string) {
+    const result = await this.expressService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

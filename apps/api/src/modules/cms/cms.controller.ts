@@ -35,12 +35,17 @@ export class CmsController {
   @Get('article/list')
   @ApiOperation({ summary: '文章列表' })
   async getArticleList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('title') title?: string,
-    @Query('cid') cid?: number,
+    @Query('cid') cid?: string,
   ) {
-    const result = await this.articleService.getList({ page, limit, title, cid });
+    const result = await this.articleService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      title,
+      cid: cid ? Number(cid) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

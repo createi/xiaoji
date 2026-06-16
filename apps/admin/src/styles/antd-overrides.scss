@@ -1,0 +1,153 @@
+// Ant Design Vue component overrides — CRMEB style
+
+// Buttons
+.ant-btn {
+  border-radius: 4px;
+  font-size: 12px;
+  height: 32px;
+  padding: 0 12px;
+}
+
+.ant-btn-sm {
+  height: 24px;
+  font-size: 12px;
+  padding: 0 7px;
+}
+
+.ant-btn-lg {
+  height: 40px;
+  font-size: 14px;
+  padding: 0 16px;
+}
+
+// Cards
+.ant-card {
+  border-radius: 6px;
+  border: none;
+  box-shadow: none;
+}
+
+.ant-card-head {
+  border-bottom: 1px solid var(--xj-border-color);
+  min-height: 44px;
+  font-size: 14px;
+}
+
+.ant-card-body {
+  padding: 16px;
+}
+
+// Tables
+.ant-table {
+  font-size: 12px;
+}
+
+.ant-table-thead > tr > th {
+  background: var(--xj-table-header-bg);
+  font-weight: 600;
+  font-size: 12px;
+  padding: 10px 5px;
+  border-bottom: 1px solid var(--xj-border-color);
+}
+
+.ant-table-tbody > tr > td {
+  padding: 10px 5px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--xj-border-color);
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fafafa;
+}
+
+// Modal / Drawer
+.ant-modal-content {
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ant-modal-header {
+  background: #fafafa;
+  border-radius: 6px 6px 0 0;
+}
+
+.ant-drawer-header {
+  border-bottom: 1px solid var(--xj-border-color);
+}
+
+// Form
+.ant-form-item-label > label {
+  font-size: 12px;
+}
+
+// Input
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select-selector,
+.ant-picker {
+  font-size: 12px;
+}
+
+// Menu
+.ant-menu-item {
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+  margin: 0 !important;
+}
+
+.ant-menu-submenu-title {
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+  margin: 0 !important;
+}
+
+// Badge
+.ant-badge-status-text {
+  font-size: 12px;
+}
+
+// Tag
+.ant-tag {
+  font-size: 12px;
+  border-radius: 2px;
+  line-height: 20px;
+  padding: 0 6px;
+}
+
+// Pagination
+.ant-pagination {
+  font-size: 12px;
+  margin-top: 16px;
+}
+
+// Switch
+.ant-switch {
+  min-width: 36px;
+}
+
+// Tabs
+.ant-tabs-tab {
+  font-size: 12px;
+}
+
+// Popover / Tooltip
+.ant-popover-inner-content,
+.ant-tooltip-inner {
+  font-size: 12px;
+}
+
+// Message
+.ant-message-notice-content {
+  font-size: 12px;
+}
+
+// Statistic numbers — Roboto monospace
+.ant-statistic-content-value,
+.ant-statistic-content,
+.stat-number,
+.price-text,
+.amount-text {
+  font-family: 'Roboto', 'Roboto Mono', 'Courier New', monospace;
+}

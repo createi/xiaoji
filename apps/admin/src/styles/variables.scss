@@ -1,0 +1,37 @@
+// CRMEB-inspired CSS custom properties
+:root {
+  --xj-color-primary: #0256ff;
+  --xj-color-primary-light: #409eff;
+  --xj-color-primary-dark: #0040cc;
+
+  --xj-sidebar-bg: #282c34;
+  --xj-sidebar-width: 180px;
+  --xj-sidebar-collapsed-width: 50px;
+
+  --xj-header-height: 50px;
+  --xj-header-bg: #ffffff;
+  --xj-header-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+
+  --xj-content-bg: #f0f2f5;
+  --xj-content-padding: 16px;
+
+  --xj-text-primary: #303133;
+  --xj-text-regular: #606266;
+  --xj-text-secondary: #909399;
+  --xj-text-placeholder: #c0c4cc;
+
+  --xj-border-color: #ebeef5;
+  --xj-border-color-light: #e4e7ed;
+
+  --xj-bg-white: #ffffff;
+  --xj-bg-page: #f0f2f5;
+  --xj-bg-card: #ffffff;
+
+  --xj-table-header-bg: #f2f6ff;
+  --xj-table-row-height: 54px;
+
+  --xj-success-color: #67c23a;
+  --xj-warning-color: #e6a23c;
+  --xj-danger-color: #f56c6c;
+  --xj-info-color: #909399;
+}

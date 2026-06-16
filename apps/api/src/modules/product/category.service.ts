@@ -24,7 +24,15 @@ export class CategoryService {
       this.prisma.storeCategory.count({ where }),
     ]);
 
-    return { data: list, total, page, limit };
+    return {
+      data: list.map((item) => ({
+        ...item,
+        add_time: item.addTime ? Number(item.addTime) : null,
+      })),
+      total,
+      page,
+      limit,
+    };
   }
 
   async getAll() {
@@ -40,6 +48,7 @@ export class CategoryService {
       .filter((item) => item.pid === pid)
       .map((item) => ({
         ...item,
+        add_time: item.addTime ? Number(item.addTime) : null,
         children: this.buildTree(list, item.id),
       }));
   }

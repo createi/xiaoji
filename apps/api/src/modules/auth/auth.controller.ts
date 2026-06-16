@@ -94,14 +94,14 @@ export class AuthController {
   @ApiBearerAuth()
   @ApiOperation({ summary: '管理员列表' })
   async getAdminList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('account') account?: string,
     @Query('real_name') real_name?: string,
   ) {
     const result = await this.authService.getAdminList({
-      page: page || 1,
-      limit: limit || 10,
+      page: page ? Number(page) : 1,
+      limit: limit ? Number(limit) : 10,
       account,
       real_name,
     });

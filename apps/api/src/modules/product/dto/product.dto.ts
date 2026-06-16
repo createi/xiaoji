@@ -1,18 +1,26 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNumber, IsArray } from 'class-validator';
+import { Type } from 'class-transformer';
 
 // ==================== 商品 ====================
 
 export class QueryProductDto {
   @ApiPropertyOptional({ description: '页码' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   page?: number;
 
   @ApiPropertyOptional({ description: '每页数量' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   limit?: number;
+
+  @ApiPropertyOptional({ description: '商品名称(搜索)' })
+  @IsOptional()
+  @IsString()
+  keyword?: string;
 
   @ApiPropertyOptional({ description: '商品名称' })
   @IsOptional()
@@ -21,23 +29,33 @@ export class QueryProductDto {
 
   @ApiPropertyOptional({ description: '商品类型 0=普通 1=卡密 2=优惠券 3=虚拟' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   product_type?: number;
 
   @ApiPropertyOptional({ description: '分类 ID' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   cate_id?: number;
 
   @ApiPropertyOptional({ description: '规格类型 0=单规格 1=多规格' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   spec_type?: number;
 
   @ApiPropertyOptional({ description: '状态 1=上架 0=下架' })
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
   is_show?: number;
+
+  @ApiPropertyOptional({ description: '状态(前端字段)' })
+  @IsOptional()
+  @Type(() => Number)
+  @IsNumber()
+  status?: number;
 
   @ApiPropertyOptional({ description: '开始时间' })
   @IsOptional()

@@ -25,12 +25,17 @@ export class CouponController {
   @Get('list')
   @ApiOperation({ summary: '优惠券列表' })
   async getList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('title') title?: string,
-    @Query('status') status?: number,
+    @Query('status') status?: string,
   ) {
-    const result = await this.couponService.getList({ page, limit, title, status });
+    const result = await this.couponService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      title,
+      status: status ? Number(status) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

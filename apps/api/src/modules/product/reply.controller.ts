@@ -24,12 +24,17 @@ export class ReplyController {
   @Get('list')
   @ApiOperation({ summary: '评价列表' })
   async getList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
-    @Query('product_id') product_id?: number,
-    @Query('status') status?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('product_id') product_id?: string,
+    @Query('status') status?: string,
   ) {
-    const result = await this.replyService.getList({ page, limit, product_id, status });
+    const result = await this.replyService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      product_id: product_id ? Number(product_id) : undefined,
+      status: status ? Number(status) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 

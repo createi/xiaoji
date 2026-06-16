@@ -24,11 +24,15 @@ export class MenuController {
   @Get('list')
   @ApiOperation({ summary: '菜单列表' })
   async getList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('title') title?: string,
   ) {
-    const result = await this.menuService.getList({ page, limit, title });
+    const result = await this.menuService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      title,
+    });
     return {
       status: 200,
       message: '获取成功',

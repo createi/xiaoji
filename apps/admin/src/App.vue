@@ -1,16 +1,18 @@
 <template>
-  <a-config-provider :locale="zhCN">
+  <a-config-provider :locale="zhCN" :theme="themeConfig">
     <router-view />
   </a-config-provider>
 </template>
 
 <script setup lang="ts">
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
-</script>
+import { computed } from 'vue';
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-}
-</style>
+const themeConfig = computed(() => ({
+  token: {
+    colorPrimary: '#0256ff',
+    borderRadius: 4,
+    fontSize: 12,
+  },
+}));
+</script>

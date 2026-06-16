@@ -25,12 +25,17 @@ export class CombinationController {
   @Get('list')
   @ApiOperation({ summary: '拼团活动列表' })
   async getList(
-    @Query('page') page?: number,
-    @Query('limit') limit?: number,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
     @Query('title') title?: string,
-    @Query('is_show') is_show?: number,
+    @Query('is_show') is_show?: string,
   ) {
-    const result = await this.combinationService.getList({ page, limit, title, is_show });
+    const result = await this.combinationService.getList({
+      page: page ? Number(page) : undefined,
+      limit: limit ? Number(limit) : undefined,
+      title,
+      is_show: is_show ? Number(is_show) : undefined,
+    });
     return { status: 200, message: '获取成功', data: result };
   }
 
