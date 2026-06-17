@@ -1,6 +1,8 @@
 <template>
   <div class="user-label-page">
-    <PageHeader title="用户标签" />
+    <PageHeader title="用户标签">
+      <a-button type="primary" @click="handleAdd">新建</a-button>
+    </PageHeader>
     <SearchForm>
       <a-form layout="inline" @finish="handleSearch">
         <a-form-item label="标签名称">
@@ -47,11 +49,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import PageHeader from '@/components/PageHeader/index.vue'
 import SearchForm from '@/components/SearchForm/index.vue'
 import { getUserLabelList, deleteUserLabel } from '@/api/user'
 
+const router = useRouter()
 const loading = ref(false)
 const tableData = ref<any[]>([])
 
@@ -109,8 +113,12 @@ function handleTableChange(pag: any) {
   fetchData()
 }
 
+function handleAdd() {
+  router.push('/user/label/add')
+}
+
 function handleEdit(record: any) {
-  // TODO: navigate to edit page
+  router.push('/user/label/add/' + record.id)
 }
 
 async function handleDelete(record: any) {

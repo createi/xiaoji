@@ -1,6 +1,8 @@
 <template>
   <div class="integral-page">
-    <PageHeader title="积分商品" />
+    <PageHeader title="积分商品">
+      <a-button type="primary" @click="handleAdd">新建</a-button>
+    </PageHeader>
     <SearchForm>
       <a-form layout="inline" @finish="handleSearch">
         <a-form-item label="商品名称">
@@ -49,11 +51,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import PageHeader from '@/components/PageHeader/index.vue'
 import SearchForm from '@/components/SearchForm/index.vue'
 import { getIntegralList, deleteIntegral } from '@/api/marketing'
 
+const router = useRouter()
 const loading = ref(false)
 const tableData = ref<any[]>([])
 
@@ -116,8 +120,12 @@ function handleTableChange(pag: any) {
   fetchData()
 }
 
+function handleAdd() {
+  router.push('/marketing/integral/add')
+}
+
 function handleEdit(record: any) {
-  // TODO: navigate to edit page
+  router.push('/marketing/integral/add/' + record.id)
 }
 
 async function handleDelete(record: any) {

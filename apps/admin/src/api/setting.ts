@@ -91,3 +91,12 @@ export function updateExpress(id: number, data: Record<string, any>) {
 export function deleteExpress(id: number) {
   return request.delete(`/shipping/express/${id}`);
 }
+
+// System Config
+export function getSystemConfig() {
+  return request.get('/system/config');
+}
+
+export function saveSystemConfig(data: Record<string, any>) {
+  return request.post('/system/config', data);
+}

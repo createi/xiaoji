@@ -1,6 +1,8 @@
 <template>
   <div class="article-list-page">
-    <PageHeader title="文章列表" />
+    <PageHeader title="文章列表">
+      <a-button type="primary" @click="handleAdd">新建</a-button>
+    </PageHeader>
     <SearchForm>
       <a-form layout="inline" @finish="handleSearch">
         <a-form-item label="关键词">
@@ -57,11 +59,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import PageHeader from '@/components/PageHeader/index.vue'
 import SearchForm from '@/components/SearchForm/index.vue'
 import { getArticleList, deleteArticle } from '@/api/cms'
 
+const router = useRouter()
 const loading = ref(false)
 const tableData = ref<any[]>([])
 
@@ -123,8 +127,12 @@ function handleTableChange(pag: any) {
   fetchData()
 }
 
+function handleAdd() {
+  router.push('/cms/article-save/add')
+}
+
 function handleEdit(record: any) {
-  // TODO: navigate to edit page
+  router.push('/cms/article-save/' + record.id)
 }
 
 async function handleDelete(record: any) {

@@ -50,6 +50,7 @@
 import { ref, reactive } from 'vue';
 import { message } from 'ant-design-vue';
 import PageHeader from '@/components/PageHeader/index.vue';
+import { saveSystemConfig } from '@/api/setting';
 
 const saving = ref(false);
 
@@ -68,7 +69,12 @@ function beforeUpload(_file: File) {
 async function handleSave() {
   saving.value = true;
   try {
-    // TODO: call save API
+    await saveSystemConfig({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      address: formData.address,
+    });
     message.success('保存成功');
   } catch {
     message.error('保存失败');

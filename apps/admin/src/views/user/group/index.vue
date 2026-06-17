@@ -1,6 +1,8 @@
 <template>
   <div class="user-group-page">
-    <PageHeader title="用户分组" />
+    <PageHeader title="用户分组">
+      <a-button type="primary" @click="handleAdd">新建</a-button>
+    </PageHeader>
     <SearchForm>
       <a-form layout="inline" @finish="handleSearch">
         <a-form-item label="分组名称">
@@ -41,11 +43,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import PageHeader from '@/components/PageHeader/index.vue'
 import SearchForm from '@/components/SearchForm/index.vue'
 import { getUserGroupList, deleteUserGroup } from '@/api/user'
 
+const router = useRouter()
 const loading = ref(false)
 const tableData = ref<any[]>([])
 
@@ -104,8 +108,12 @@ function handleTableChange(pag: any) {
   fetchData()
 }
 
+function handleAdd() {
+  router.push('/user/group/add')
+}
+
 function handleEdit(record: any) {
-  // TODO: navigate to edit page
+  router.push('/user/group/add/' + record.id)
 }
 
 async function handleDelete(record: any) {

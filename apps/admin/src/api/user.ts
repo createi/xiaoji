@@ -96,3 +96,16 @@ export function getUserAddressList(params?: Record<string, any>) {
 export function getUserAddresses(uid: number) {
   return request.get(`/user/address/user/${uid}`);
 }
+
+// Detail
+export function getUserLevelDetail(id: number) {
+  return request.get(`/user/level/${id}`);
+}
+
+export function getUserGroupDetail(id: number) {
+  return request.get(`/user/group/${id}`);
+}
+
+export function getUserLabelDetail(id: number) {
+  return request.get(`/user/label/${id}`);
+}

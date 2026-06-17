@@ -1,6 +1,8 @@
 <template>
   <div>
-    <PageHeader title="商品列表" />
+    <PageHeader title="商品列表">
+      <a-button type="primary" @click="handleAdd">新建</a-button>
+    </PageHeader>
 
     <!-- Search -->
     <SearchForm>
@@ -147,6 +149,10 @@ function handleTableChange(pag: any) {
   pagination.current = pag.current;
   pagination.pageSize = pag.pageSize;
   fetchData();
+}
+
+function handleAdd() {
+  router.push('/product/add');
 }
 
 async function handleStatusChange(record: any, checked: boolean) {
