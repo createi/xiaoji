@@ -93,10 +93,65 @@ export function deleteExpress(id: number) {
 }
 
 // System Config
+export function getConfigTabs() {
+  return request.get('/system/config/tabs');
+}
+
 export function getSystemConfig() {
   return request.get('/system/config');
 }
 
+export function getConfigByTabId(tabId: number) {
+  return request.get(`/system/config/${tabId}`);
+}
+
 export function saveSystemConfig(data: Record<string, any>) {
   return request.post('/system/config', data);
+}
+
+// System Log
+export function getSystemLogList(params?: Record<string, any>) {
+  return request.get('/system/log', { params });
+}
+
+// Store
+export function getStoreList(params?: Record<string, any>) {
+  return request.get('/system/store/list', { params });
+}
+
+export function getStoreAll() {
+  return request.get('/system/store/all');
+}
+
+export function getStoreDetail(id: number) {
+  return request.get(`/system/store/${id}`);
+}
+
+export function createStore(data: Record<string, any>) {
+  return request.post('/system/store', data);
+}
+
+export function updateStore(id: number, data: Record<string, any>) {
+  return request.put(`/system/store/${id}`, data);
+}
+
+export function deleteStore(id: number) {
+  return request.delete(`/system/store/${id}`);
+}
+
+// Staff
+export function getStaffList(params?: Record<string, any>) {
+  return request.get('/system/staff/list', { params });
+}
+
+export function createStaff(data: Record<string, any>) {
+  return request.post('/system/staff', data);
+}
+
+export function updateStaff(id: number, data: Record<string, any>) {
+  return request.put(`/system/staff/${id}`, data);
+}
+
+export function deleteStaff(id: number) {
+  return request.delete(`/system/staff/${id}`);
 }

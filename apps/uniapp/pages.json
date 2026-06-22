@@ -75,6 +75,36 @@
           "style": {
             "navigationBarTitleText": "收银台"
           }
+        },
+        {
+          "path": "order_pay_status/index",
+          "style": {
+            "navigationBarTitleText": "支付结果"
+          }
+        },
+        {
+          "path": "goods_logistics/index",
+          "style": {
+            "navigationBarTitleText": "物流追踪"
+          }
+        },
+        {
+          "path": "goods_comment_list/index",
+          "style": {
+            "navigationBarTitleText": "商品评价"
+          }
+        },
+        {
+          "path": "goods_return/index",
+          "style": {
+            "navigationBarTitleText": "退款申请"
+          }
+        },
+        {
+          "path": "order_refund_goods/index",
+          "style": {
+            "navigationBarTitleText": "退货物流"
+          }
         }
       ]
     },
@@ -110,6 +140,18 @@
           "style": {
             "navigationBarTitleText": "积分明细"
           }
+        },
+        {
+          "path": "user_bill/index",
+          "style": {
+            "navigationBarTitleText": "账单"
+          }
+        },
+        {
+          "path": "user_extract/index",
+          "style": {
+            "navigationBarTitleText": "提现"
+          }
         }
       ]
     },
@@ -132,6 +174,34 @@
           "path": "goods_seckill_details/index",
           "style": {
             "navigationBarTitleText": "秒杀详情"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/points_mall",
+      "pages": [
+        {
+          "path": "index",
+          "style": {
+            "navigationBarTitleText": "积分商城"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/extension",
+      "pages": [
+        {
+          "path": "news_list/index",
+          "style": {
+            "navigationBarTitleText": "文章列表"
+          }
+        },
+        {
+          "path": "news_detail/index",
+          "style": {
+            "navigationBarTitleText": "文章详情"
           }
         }
       ]
