@@ -10,6 +10,8 @@ import { BargainService } from './bargain.service';
 import { BargainController } from './bargain.controller';
 import { IntegralService } from './integral.service';
 import { IntegralController } from './integral.controller';
+import { SignService } from './sign.service';
+import { SignController } from './sign.controller';
 
 @Module({
   imports: [PrismaModule],
@@ -19,6 +21,7 @@ import { IntegralController } from './integral.controller';
     CombinationService,
     BargainService,
     IntegralService,
+    SignService,
   ],
   controllers: [
     CouponController,
@@ -26,6 +29,7 @@ import { IntegralController } from './integral.controller';
     CombinationController,
     BargainController,
     IntegralController,
+    SignController,
   ],
 })
 export class MarketingModule {}

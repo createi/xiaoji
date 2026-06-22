@@ -2,20 +2,36 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
+    container_name: xiaoji-mysql
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: xiaoji_dev
+      MYSQL_CHARSET: utf8mb4
+      TZ: Asia/Shanghai
     volumes:
       - mysql_data:/var/lib/mysql
       - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks:
+      - xiaoji-net
 
   redis:
     image: redis:7-alpine
+    container_name: xiaoji-redis
     ports:
       - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - xiaoji-net
 
 volumes:
   mysql_data:
+  redis_data:
+
+networks:
+  xiaoji-net:
+    driver: bridge

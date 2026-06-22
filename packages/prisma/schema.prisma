@@ -682,6 +682,8 @@ model StoreBargain {
   countPeopleHelp    Int     @default(0) @map("count_people_help")
   countPeopleSuccess Int     @default(0) @map("count_people_success")
 
+  bargainUsers StoreBargainUser[]
+
   @@map("xj_store_bargain")
 }
 
@@ -727,6 +729,8 @@ model AgentLevel {
   status       Int     @default(1)
   addTime      BigInt  @default(0) @map("add_time")
 
+  tasks AgentLevelTask[]
+
   @@map("xj_agent_level")
 }
 
@@ -760,6 +764,9 @@ model ShippingTemplate {
   appoint Int    @default(0)
   sort    Int    @default(0)
   addTime BigInt @default(0) @map("add_time")
+
+  regions ShippingTemplateRegion[]
+  frees   ShippingTemplateFree[]
 
   @@map("xj_shipping_templates")
 }
@@ -840,4 +847,265 @@ model SystemStoreStaff {
   store SystemStore @relation(fields: [storeId], references: [id])
 
   @@map("xj_system_store_staff")
+}
+
+// ==================== 微信表 ====================
+
+model WechatUser {
+  id        Int    @id @default(autoincrement())
+  uid       Int
+  openid    String @db.VarChar(128)
+  nickname  String @default("") @db.VarChar(128)
+  headimgurl String @default("") @map("headimgurl") @db.VarChar(512)
+  sex       Int    @default(0)
+  city      String @default("") @db.VarChar(64)
+  province  String @default("") @db.VarChar(64)
+  country   String @default("") @db.VarChar(64)
+  language  String @default("") @db.VarChar(32)
+  unionid   String @default("") @db.VarChar(128)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_wechat_user")
+}
+
+model WechatKey {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(64)
+  account  String @default("") @db.VarChar(128)
+  path     String @default("") @db.VarChar(256)
+  qrCode   String @default("") @map("qr_code") @db.VarChar(512)
+  addTime  BigInt @default(0) @map("add_time")
+
+  @@map("xj_wechat_key")
+}
+
+model WechatMedia {
+  id        Int    @id @default(autoincrement())
+  type      String @db.VarChar(32)
+  mediaId   String @map("media_id") @db.VarChar(256)
+  name      String @default("") @db.VarChar(256)
+  url       String @default("") @db.VarChar(512)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_wechat_media")
+}
+
+model WechatMessage {
+  id        Int    @id @default(autoincrement())
+  type      String @default("text") @db.VarChar(32)
+  content   String @db.Text
+  status    Int    @default(1)
+  sort      Int    @default(0)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_wechat_message")
+}
+
+model WechatQrcode {
+  id         Int    @id @default(autoincrement())
+  name       String @db.VarChar(64)
+  type       Int    @default(0)
+  groupId    Int    @default(0) @map("group_id")
+  categoryId Int    @default(0) @map("category_id")
+  codeUrl    String @default("") @map("code_url") @db.VarChar(512)
+  imageUrl   String @default("") @map("image_url") @db.VarChar(512)
+  addTime    BigInt @default(0) @map("add_time")
+
+  @@map("xj_wechat_qrcode")
+}
+
+model WechatReply {
+  id        Int    @id @default(autoincrement())
+  uid       Int    @default(0)
+  type      String @default("text") @db.VarChar(32)
+  content   String @db.Text
+  status    Int    @default(1)
+  sort      Int    @default(0)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_wechat_reply")
+}
+
+// ==================== DIY 表 ====================
+
+model Diy {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(64)
+  description String @default("") @db.VarChar(256)
+  content     String @db.Text
+  isDefault   Int    @default(0) @map("is_default")
+  status      Int    @default(1)
+  addTime     BigInt @default(0) @map("add_time")
+
+  @@map("xj_diy")
+}
+
+model Theme {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(64)
+  description String @default("") @db.VarChar(256)
+  isCurrent   Int    @default(0) @map("is_current")
+  status      Int    @default(1)
+  addTime     BigInt @default(0) @map("add_time")
+
+  @@map("xj_theme")
+}
+
+// ==================== 资金流水 ====================
+
+model CapitalFlow {
+  id          Int    @id @default(autoincrement())
+  uid         Int
+  nickname    String @default("") @db.VarChar(64)
+  type        Int    @default(0)
+  number      Decimal @default(0) @db.Decimal(10, 2)
+  balance     Decimal @default(0) @db.Decimal(10, 2)
+  mark        String @default("") @db.VarChar(256)
+  addTime     BigInt @default(0) @map("add_time")
+
+  @@map("xj_capital_flow")
+}
+
+// ==================== 营销扩展表 ====================
+
+model StoreBargainUser {
+  id         Int    @id @default(autoincrement())
+  uid        Int
+  bargainId  Int    @map("bargain_id")
+  price      Decimal @default(0) @db.Decimal(10, 2)
+  isHelp     Int    @default(0) @map("is_help")
+  addTime    BigInt @default(0) @map("add_time")
+
+  bargain StoreBargain @relation(fields: [bargainId], references: [id])
+
+  @@map("xj_store_bargain_user")
+}
+
+model StoreBargainUserHelp {
+  id           Int    @id @default(autoincrement())
+  uid          Int
+  bargainId    Int    @map("bargain_id")
+  bargainUserId Int   @map("bargain_user_id")
+  price        Decimal @default(0) @db.Decimal(10, 2)
+  addTime      BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_bargain_user_help")
+}
+
+model StoreIntegralOrder {
+  id          Int    @id @default(autoincrement())
+  orderId     String @map("order_id") @db.VarChar(64)
+  uid         Int
+  integral    Int    @default(0)
+  totalPrice  Decimal @default(0) @map("total_price") @db.Decimal(10, 2)
+  status      Int    @default(0)
+  addTime     BigInt @default(0) @map("add_time")
+
+  @@map("xj_store_integral_order")
+}
+
+// ==================== 运费区域表 ====================
+
+model ShippingTemplateRegion {
+  id           Int    @id @default(autoincrement())
+  templateId   Int    @map("template_id")
+  region       String @db.VarChar(256)
+  first        Int    @default(0)
+  firstPrice   Decimal @default(0) @map("first_price") @db.Decimal(10, 2)
+  additional   Int    @default(0)
+  additionalPrice Decimal @default(0) @map("additional_price") @db.Decimal(10, 2)
+
+  template ShippingTemplate @relation(fields: [templateId], references: [id])
+
+  @@map("xj_shipping_templates_region")
+}
+
+model ShippingTemplateFree {
+  id         Int    @id @default(autoincrement())
+  templateId Int    @map("template_id")
+  region     String @db.VarChar(256)
+  totalPrice Decimal @default(0) @map("total_price") @db.Decimal(10, 2)
+  totalNumber Int    @default(0) @map("total_number")
+
+  template ShippingTemplate @relation(fields: [templateId], references: [id])
+
+  @@map("xj_shipping_templates_free")
+}
+
+// ==================== 系统扩展表 ====================
+
+model SystemNotice {
+  id        Int    @id @default(autoincrement())
+  uid       Int
+  title     String @db.VarChar(128)
+  content   String @db.Text
+  type      Int    @default(0)
+  isSee     Int    @default(0) @map("is_see")
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_system_notice")
+}
+
+model SystemStorage {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(64)
+  bucket    String @default("") @db.VarChar(128)
+  endpoint  String @default("") @db.VarChar(128)
+  domain    String @default("") @db.VarChar(256)
+  region    String @default("") @db.VarChar(64)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_system_storage")
+}
+
+model SystemTimer {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(64)
+  command   String @db.VarChar(128)
+  cron      String @db.VarChar(64)
+  status    Int    @default(1)
+  remark    String @default("") @db.VarChar(256)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_system_timer")
+}
+
+model SmsRecord {
+  id        Int    @id @default(autoincrement())
+  phone     String @db.VarChar(16)
+  content   String @db.Text
+  type      String @default("") @db.VarChar(32)
+  status    Int    @default(0)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_sms_record")
+}
+
+// ==================== 分销扩展表 ====================
+
+model AgentLevelTask {
+  id        Int    @id @default(autoincrement())
+  levelId   Int    @map("level_id")
+  name      String @db.VarChar(64)
+  type      Int    @default(0)
+  value     Int    @default(0)
+  sort      Int    @default(0)
+  status    Int    @default(1)
+  addTime   BigInt @default(0) @map("add_time")
+
+  level AgentLevel @relation(fields: [levelId], references: [id])
+
+  @@map("xj_agent_level_task")
+}
+
+// ==================== 协议表 ====================
+
+model SystemAgreement {
+  id        Int    @id @default(autoincrement())
+  title     String @db.VarChar(128)
+  content   String @db.Text
+  status    Int    @default(1)
+  addTime   BigInt @default(0) @map("add_time")
+
+  @@map("xj_system_agreement")
 }

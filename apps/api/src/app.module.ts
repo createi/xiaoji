@@ -21,6 +21,8 @@ import { StatisticModule } from './modules/statistic/statistic.module';
 import { ShippingModule } from './modules/shipping/shipping.module';
 import { WebSocketModule } from './modules/websocket/websocket.module';
 import { QueueModule } from './modules/queue/queue.module';
+import { DiyModule } from './modules/diy/diy.module';
+import { WechatModule } from './modules/wechat/wechat.module';
 
 @Module({
   imports: [
@@ -59,6 +61,8 @@ import { QueueModule } from './modules/queue/queue.module';
     ShippingModule,
     WebSocketModule,
     QueueModule,
+    DiyModule,
+    WechatModule,
   ],
   controllers: [],
   providers: [],

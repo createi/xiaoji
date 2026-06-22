@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: apps/api/Dockerfile
+    container_name: xiaoji-api-prod
     ports:
       - "7001:7001"
     env_file:
@@ -12,35 +13,48 @@ services:
       - mysql
       - redis
     restart: always
+    networks:
+      - xiaoji-net
 
   admin:
     build:
       context: .
       dockerfile: apps/admin/Dockerfile
+    container_name: xiaoji-admin-prod
     ports:
-      - "8080:80"
+      - "80:80"
     restart: always
+    networks:
+      - xiaoji-net
 
   mysql:
     image: mysql:8.0
+    container_name: xiaoji-mysql-prod
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-123456}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-changeme}
       MYSQL_DATABASE: xiaoji_prod
+      MYSQL_CHARSET: utf8mb4
+      TZ: Asia/Shanghai
     volumes:
       - mysql_prod_data:/var/lib/mysql
-      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
     command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     restart: always
+    networks:
+      - xiaoji-net
 
   redis:
     image: redis:7-alpine
-    command: redis-server --requirepass ${REDIS_PASSWORD:-redis123}
+    container_name: xiaoji-redis-prod
+    command: redis-server --requirepass ${REDIS_PASSWORD:-changeme} --appendonly yes
     volumes:
       - redis_prod_data:/data
     restart: always
+    networks:
+      - xiaoji-net
 
   nginx:
     image: nginx:alpine
+    container_name: xiaoji-nginx-prod
     ports:
       - "80:80"
       - "443:443"
@@ -51,7 +65,13 @@ services:
       - api
       - admin
     restart: always
+    networks:
+      - xiaoji-net
 
 volumes:
   mysql_prod_data:
   redis_prod_data:
+
+networks:
+  xiaoji-net:
+    driver: bridge

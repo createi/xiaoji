@@ -56,6 +56,24 @@ const routes: RouteRecordRaw[] = [
             component: () => import('@/views/product/reply/index.vue'),
             meta: { title: '商品评价' },
           },
+          {
+            path: 'param',
+            name: 'ProductParam',
+            component: () => import('@/views/product/param/index.vue'),
+            meta: { title: '商品参数' },
+          },
+          {
+            path: 'label',
+            name: 'ProductLabel',
+            component: () => import('@/views/product/label/index.vue'),
+            meta: { title: '商品标签' },
+          },
+          {
+            path: 'protection',
+            name: 'ProductProtection',
+            component: () => import('@/views/product/protection/index.vue'),
+            meta: { title: '服务保障' },
+          },
         ],
       },
       {
@@ -156,6 +174,12 @@ const routes: RouteRecordRaw[] = [
             component: () => import('@/views/user/grade/index.vue'),
             meta: { title: '会员等级管理' },
           },
+          {
+            path: 'cancel',
+            name: 'UserCancel',
+            component: () => import('@/views/user/cancel/index.vue'),
+            meta: { title: '注销申请' },
+          },
         ],
       },
       {
@@ -230,6 +254,30 @@ const routes: RouteRecordRaw[] = [
             component: () => import('@/views/marketing/sign/index.vue'),
             meta: { title: '签到管理' },
           },
+          {
+            path: 'coupon-issue',
+            name: 'MarketingCouponIssue',
+            component: () => import('@/views/marketing/coupon-issue/index.vue'),
+            meta: { title: '优惠券发放' },
+          },
+          {
+            path: 'coupon-user',
+            name: 'MarketingCouponUser',
+            component: () => import('@/views/marketing/coupon-user/index.vue'),
+            meta: { title: '领券记录' },
+          },
+          {
+            path: 'integral-order',
+            name: 'MarketingIntegralOrder',
+            component: () => import('@/views/marketing/integral-order/index.vue'),
+            meta: { title: '积分订单' },
+          },
+          {
+            path: 'presell',
+            name: 'MarketingPresell',
+            component: () => import('@/views/marketing/presell/index.vue'),
+            meta: { title: '预售管理' },
+          },
         ],
       },
       {
@@ -261,6 +309,12 @@ const routes: RouteRecordRaw[] = [
             name: 'FinanceCapitalFlow',
             component: () => import('@/views/finance/capital-flow/index.vue'),
             meta: { title: '资金流水' },
+          },
+          {
+            path: 'recharge',
+            name: 'FinanceRecharge',
+            component: () => import('@/views/finance/recharge/index.vue'),
+            meta: { title: '充值记录' },
           },
         ],
       },

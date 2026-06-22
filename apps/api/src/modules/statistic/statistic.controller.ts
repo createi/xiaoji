@@ -42,4 +42,11 @@ export class StatisticController {
     const result = await this.statisticService.getUserStatistics();
     return { status: 200, message: '获取成功', data: result };
   }
+
+  @Get('order')
+  @ApiOperation({ summary: '订单统计' })
+  async getOrderStatistics() {
+    const result = await this.statisticService.getOrderStatistics();
+    return { status: 200, message: '获取成功', data: result };
+  }
 }

@@ -111,6 +111,71 @@ export class StatisticService {
     };
   }
 
+  async getOrderStatistics() {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const yesterdayStart = todayStart - 24 * 60 * 60 * 1000;
+
+    // 今日订单数
+    const todayOrderCount = await this.prisma.storeOrder.count({
+      where: {
+        addTime: { gte: BigInt(todayStart) },
+        isDel: 0,
+      },
+    });
+
+    // 昨日订单数
+    const yesterdayOrderCount = await this.prisma.storeOrder.count({
+      where: {
+        addTime: { gte: BigInt(yesterdayStart), lt: BigInt(todayStart) },
+        isDel: 0,
+      },
+    });
+
+    // 本月订单数
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+    const monthOrderCount = await this.prisma.storeOrder.count({
+      where: {
+        addTime: { gte: BigInt(monthStart) },
+        isDel: 0,
+      },
+    });
+
+    // 总订单数
+    const totalCount = await this.prisma.storeOrder.count({
+      where: { isDel: 0 },
+    });
+
+    // 近30天订单趋势
+    const orderTrend: { date: string; count: number }[] = [];
+    for (let i = 29; i >= 0; i--) {
+      const date = new Date(now);
+      date.setDate(date.getDate() - i);
+      const dayStart = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+      const dayEnd = dayStart + 24 * 60 * 60 * 1000;
+
+      const count = await this.prisma.storeOrder.count({
+        where: {
+          addTime: { gte: BigInt(dayStart), lt: BigInt(dayEnd) },
+          isDel: 0,
+        },
+      });
+
+      orderTrend.push({
+        date: `${date.getMonth() + 1}/${date.getDate()}`,
+        count,
+      });
+    }
+
+    return {
+      todayOrderCount,
+      yesterdayOrderCount,
+      monthOrderCount,
+      totalCount,
+      orderTrend,
+    };
+  }
+
   async getUserStatistics() {
     const now = new Date();
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
