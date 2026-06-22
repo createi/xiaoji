@@ -38,12 +38,12 @@ export class CreateBargainDto {
   quota?: number;
 
   @ApiProperty({ description: '开始时间' })
-  @IsNumber()
-  start_time!: number;
+  @IsString()
+  start_time!: string;
 
   @ApiProperty({ description: '结束时间' })
-  @IsNumber()
-  end_time!: number;
+  @IsString()
+  end_time!: string;
 
   @ApiPropertyOptional({ description: '活动规则' })
   @IsOptional()
@@ -104,13 +104,13 @@ export class UpdateBargainDto {
 
   @ApiPropertyOptional({ description: '开始时间' })
   @IsOptional()
-  @IsNumber()
-  start_time?: number;
+  @IsString()
+  start_time?: string;
 
   @ApiPropertyOptional({ description: '结束时间' })
   @IsOptional()
-  @IsNumber()
-  end_time?: number;
+  @IsString()
+  end_time?: string;
 
   @ApiPropertyOptional({ description: '活动规则' })
   @IsOptional()

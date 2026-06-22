@@ -43,12 +43,12 @@ export class CreateCombinationDto {
   quota?: number;
 
   @ApiProperty({ description: '开始时间' })
-  @IsNumber()
-  start_time!: number;
+  @IsString()
+  start_time!: string;
 
   @ApiProperty({ description: '结束时间' })
-  @IsNumber()
-  end_time!: number;
+  @IsString()
+  end_time!: string;
 
   @ApiPropertyOptional({ description: '排序' })
   @IsOptional()
@@ -109,13 +109,13 @@ export class UpdateCombinationDto {
 
   @ApiPropertyOptional({ description: '开始时间' })
   @IsOptional()
-  @IsNumber()
-  start_time?: number;
+  @IsString()
+  start_time?: string;
 
   @ApiPropertyOptional({ description: '结束时间' })
   @IsOptional()
-  @IsNumber()
-  end_time?: number;
+  @IsString()
+  end_time?: string;
 
   @ApiPropertyOptional({ description: '状态' })
   @IsOptional()

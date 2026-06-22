@@ -13,7 +13,7 @@
         </a-form-item>
 
         <a-form-item label="文章分类" required>
-          <a-select v-model:value="formData.category_id" placeholder="请选择分类">
+          <a-select v-model:value="formData.cid" placeholder="请选择分类">
             <a-select-option v-for="item in categoryOptions" :key="item.id" :value="item.id">
               {{ item.name }}
             </a-select-option>
@@ -82,8 +82,8 @@ const categoryOptions = ref<any[]>([])
 
 const formData = reactive({
   title: '',
-  category_id: undefined as number | undefined,
-  cover: '',
+  cid: undefined as number | undefined,
+  image_input: '',
   author: '',
   content: '',
   status: 0,
@@ -96,6 +96,10 @@ function handleBeforeUpload() {
 
 function handleUploadChange({ fileList: newFileList }: any) {
   fileList.value = newFileList
+  // 如果有上传成功的文件，取第一个的url
+  if (newFileList.length > 0 && newFileList[0].status === 'done' && newFileList[0].response) {
+    formData.image_input = newFileList[0].response.data.url
+  }
 }
 
 async function fetchDetail() {
@@ -104,19 +108,19 @@ async function fetchDetail() {
     const res = await getArticleDetail(articleId.value)
     const data = res.data || {}
     formData.title = data.title || ''
-    formData.category_id = data.category_id
-    formData.cover = data.cover || ''
+    formData.cid = data.cid
+    formData.image_input = data.image_input || ''
     formData.author = data.author || ''
     formData.content = data.content || ''
     formData.status = data.status || 0
     formData.sort = data.sort || 0
-    if (data.cover) {
+    if (data.image_input) {
       fileList.value = [
         {
           uid: '-1',
           name: 'cover.png',
           status: 'done',
-          url: data.cover,
+          url: data.image_input,
         },
       ]
     }

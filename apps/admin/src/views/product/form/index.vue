@@ -10,17 +10,17 @@
         @finish="handleSave"
       >
         <a-form-item label="商品名称" required>
-          <a-input v-model:value="formData.name" placeholder="请输入商品名称" />
+          <a-input v-model:value="formData.store_name" placeholder="请输入商品名称" />
         </a-form-item>
 
         <a-form-item label="商品分类">
-          <a-select v-model:value="formData.category_id" placeholder="请选择分类" allow-clear>
+          <a-select v-model:value="formData.cate_id" placeholder="请选择分类" allow-clear>
             <a-select-option v-for="item in categoryOptions" :key="item.id" :value="item.id">{{ item.name }}</a-select-option>
           </a-select>
         </a-form-item>
 
         <a-form-item label="原价">
-          <a-input-number v-model:value="formData.original_price" :min="0" :precision="2" style="width: 100%" placeholder="请输入原价" />
+          <a-input-number v-model:value="formData.ot_price" :min="0" :precision="2" style="width: 100%" placeholder="请输入原价" />
         </a-form-item>
 
         <a-form-item label="售价" required>
@@ -44,8 +44,8 @@
           </a-upload>
         </a-form-item>
 
-        <a-form-item label="商品详情">
-          <a-textarea v-model:value="formData.description" placeholder="请输入商品详情" :rows="6" />
+        <a-form-item label="商品简介">
+          <a-textarea v-model:value="formData.store_info" placeholder="请输入商品简介" :rows="6" />
         </a-form-item>
 
         <a-form-item label="状态">
@@ -87,13 +87,13 @@ const productId = computed(() => {
 const isEdit = computed(() => productId.value > 0);
 
 const formData = reactive({
-  name: '',
-  category_id: undefined as number | undefined,
-  original_price: undefined as number | undefined,
+  store_name: '',
+  cate_id: undefined as number | undefined,
+  ot_price: undefined as number | undefined,
   price: undefined as number | undefined,
   stock: undefined as number | undefined,
   imageFileList: [] as any[],
-  description: '',
+  store_info: '',
   status: 1,
   sort: 0,
 });
@@ -116,12 +116,12 @@ async function fetchDetail() {
   try {
     const res: any = await getProductDetail(productId.value);
     const detail = res.data || {};
-    formData.name = detail.name || '';
-    formData.category_id = detail.category_id;
-    formData.original_price = detail.original_price;
+    formData.store_name = detail.store_name || detail.storeName || '';
+    formData.cate_id = detail.cate_id ? JSON.parse(detail.cate_id)[0] : undefined;
+    formData.ot_price = detail.ot_price;
     formData.price = detail.price;
     formData.stock = detail.stock;
-    formData.description = detail.description || '';
+    formData.store_info = detail.store_info || detail.storeInfo || '';
     formData.status = detail.status ?? 1;
     formData.sort = detail.sort ?? 0;
   } catch {
@@ -133,13 +133,14 @@ async function handleSave() {
   saving.value = true;
   try {
     const payload: Record<string, any> = {
-      name: formData.name,
-      category_id: formData.category_id,
-      original_price: formData.original_price,
+      store_name: formData.store_name,
+      cate_id: formData.cate_id ? JSON.stringify([formData.cate_id]) : '[]',
+      ot_price: formData.ot_price || 0,
       price: formData.price,
       stock: formData.stock,
-      description: formData.description,
-      status: formData.status,
+      store_info: formData.store_info,
+      image: formData.imageFileList.length > 0 ? formData.imageFileList[0].url || '' : '',
+      is_show: formData.status,
       sort: formData.sort,
     };
     if (isEdit.value) {
