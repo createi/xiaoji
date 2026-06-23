@@ -74,7 +74,7 @@ function retryPay() {
 .result-amount { font-size: 28rpx; color: #666; margin-top: 16rpx; }
 .result-desc { font-size: 26rpx; color: #999; margin-top: 12rpx; }
 .result-actions { display: flex; margin-top: 60rpx; gap: 24rpx; }
-.btn { padding: 0 40rpx; height: 72rpx; display: flex; align-items: center; justify-content: center; background: #ff6600; border-radius: 36rpx; }
+.btn { padding: 0 40rpx; height: 72rpx; display: flex; align-items: center; justify-content: center; background: #E93323; border-radius: 36rpx; }
 .btn.outline { background: #fff; border: 2rpx solid #ddd; }
 .btn-text { font-size: 28rpx; color: #fff; font-weight: bold; }
 .btn-text.outline-text { color: #666; }

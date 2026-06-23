@@ -170,7 +170,7 @@ onShow(() => {
 /* 用户头部 */
 .user-header {
   padding: 48rpx 32rpx 40rpx;
-  background: linear-gradient(135deg, #ff6600, #ff8533);
+  background: linear-gradient(135deg, #E93323, #f0684d);
 }
 .user-info {
   display: flex;

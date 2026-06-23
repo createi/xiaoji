@@ -91,7 +91,7 @@ function handleExtract() {
 
 <style scoped>
 .page { min-height: 100vh; background: #f5f5f5; }
-.balance-card { background: linear-gradient(135deg, #ff6600, #ff8533); padding: 40rpx 24rpx; text-align: center; }
+.balance-card { background: linear-gradient(135deg, #E93323, #f0684d); padding: 40rpx 24rpx; text-align: center; }
 .balance-label { font-size: 24rpx; color: rgba(255,255,255,0.8); }
 .balance-value { font-size: 56rpx; color: #fff; font-weight: bold; display: block; margin-top: 8rpx; }
 .extract-btn { margin-top: 24rpx; display: inline-block; padding: 12rpx 48rpx; border: 2rpx solid rgba(255,255,255,0.8); border-radius: 32rpx; }
@@ -107,7 +107,7 @@ function handleExtract() {
 .record-amount { font-size: 30rpx; font-weight: bold; color: #333; display: block; }
 .record-status { font-size: 22rpx; display: block; margin-top: 8rpx; }
 .record-status.success { color: #07c160; }
-.record-status.pending { color: #ff6600; }
+.record-status.pending { color: #E93323; }
 .record-status.fail { color: #ff4d4f; }
 .modal-mask { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 999; }
 .modal { width: 600rpx; background: #fff; border-radius: 16rpx; overflow: hidden; }
@@ -118,9 +118,9 @@ function handleExtract() {
 .form-input { width: 100%; height: 80rpx; border: 1rpx solid #eee; border-radius: 8rpx; padding: 0 16rpx; font-size: 28rpx; box-sizing: border-box; }
 .method-list { display: flex; gap: 16rpx; }
 .method-item { flex: 1; height: 72rpx; display: flex; align-items: center; justify-content: center; border: 2rpx solid #eee; border-radius: 8rpx; font-size: 26rpx; }
-.method-item.active { border-color: #ff6600; color: #ff6600; background: #fff7f0; }
+.method-item.active { border-color: #E93323; color: #E93323; background: #fff7f0; }
 .modal-footer { display: flex; border-top: 1rpx solid #f0f0f0; }
 .modal-btn { flex: 1; height: 88rpx; display: flex; align-items: center; justify-content: center; font-size: 28rpx; }
 .modal-btn.cancel { color: #999; border-right: 1rpx solid #f0f0f0; }
-.modal-btn.confirm { color: #ff6600; font-weight: bold; }
+.modal-btn.confirm { color: #E93323; font-weight: bold; }
 </style>

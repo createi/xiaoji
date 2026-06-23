@@ -25,9 +25,9 @@ defineEmits(['load']);
 <style scoped>
 .load-more { padding: 24rpx 0; text-align: center; }
 .loading { display: flex; align-items: center; justify-content: center; gap: 12rpx; }
-.spinner { width: 32rpx; height: 32rpx; border: 4rpx solid #eee; border-top-color: #ff6600; border-radius: 50%; animation: spin 0.6s linear infinite; }
+.spinner { width: 32rpx; height: 32rpx; border: 4rpx solid #eee; border-top-color: #E93323; border-radius: 50%; animation: spin 0.6s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text { font-size: 24rpx; color: #999; }
 .no-more-text { font-size: 24rpx; color: #ccc; }
-.load-text { font-size: 24rpx; color: #ff6600; }
+.load-text { font-size: 24rpx; color: #E93323; }
 </style>

@@ -120,7 +120,7 @@ onShow(() => {
   transform: translateY(-50%);
   width: 6rpx;
   height: 36rpx;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 0 3rpx 3rpx 0;
 }
 .sidebar-text {
@@ -132,7 +132,7 @@ onShow(() => {
   white-space: nowrap;
 }
 .sidebar-item.active .sidebar-text {
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 

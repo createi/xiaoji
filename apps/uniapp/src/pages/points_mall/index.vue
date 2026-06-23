@@ -52,7 +52,7 @@ function goDetail(item: any) {
 
 <style scoped>
 .page { min-height: 100vh; background: #f5f5f5; }
-.header { background: linear-gradient(135deg, #ff6600, #ff8533); padding: 40rpx 24rpx; display: flex; justify-content: space-between; align-items: center; }
+.header { background: linear-gradient(135deg, #E93323, #f0684d); padding: 40rpx 24rpx; display: flex; justify-content: space-between; align-items: center; }
 .title { font-size: 36rpx; color: #fff; font-weight: bold; }
 .integral-info { text-align: right; }
 .integral-label { font-size: 22rpx; color: rgba(255,255,255,0.8); display: block; }
@@ -65,7 +65,7 @@ function goDetail(item: any) {
 .product-bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 12rpx; }
 .price-row { display: flex; align-items: center; }
 .integral-icon { font-size: 24rpx; margin-right: 4rpx; }
-.price { font-size: 32rpx; color: #ff6600; font-weight: bold; }
+.price { font-size: 32rpx; color: #E93323; font-weight: bold; }
 .integral-text { font-size: 20rpx; color: #999; margin-left: 4rpx; }
 .stock { font-size: 20rpx; color: #999; }
 .empty { padding: 120rpx 0; text-align: center; }

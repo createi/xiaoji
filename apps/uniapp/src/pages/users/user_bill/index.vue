@@ -50,8 +50,8 @@ const billList = ref([
 .page { min-height: 100vh; background: #f5f5f5; }
 .tabs { display: flex; background: #fff; padding: 0 24rpx; border-bottom: 1rpx solid #f0f0f0; }
 .tab { flex: 1; padding: 24rpx 0; text-align: center; position: relative; }
-.tab.active .tab-text { color: #ff6600; font-weight: bold; }
-.tab.active::after { content: ''; position: absolute; bottom: 0; left: 30%; right: 30%; height: 4rpx; background: #ff6600; border-radius: 2rpx; }
+.tab.active .tab-text { color: #E93323; font-weight: bold; }
+.tab.active::after { content: ''; position: absolute; bottom: 0; left: 30%; right: 30%; height: 4rpx; background: #E93323; border-radius: 2rpx; }
 .tab-text { font-size: 28rpx; color: #666; }
 .bill-list { padding: 16rpx; }
 .bill-item { background: #fff; border-radius: 12rpx; padding: 24rpx; margin-bottom: 16rpx; display: flex; justify-content: space-between; }
@@ -60,7 +60,7 @@ const billList = ref([
 .bill-mark { font-size: 22rpx; color: #999; margin-top: 8rpx; display: block; }
 .bill-right { text-align: right; }
 .bill-number { font-size: 30rpx; font-weight: bold; display: block; }
-.bill-number.positive { color: #ff6600; }
+.bill-number.positive { color: #E93323; }
 .bill-number.negative { color: #333; }
 .bill-time { font-size: 22rpx; color: #999; margin-top: 8rpx; display: block; }
 .empty { padding: 120rpx 0; text-align: center; }

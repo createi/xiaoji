@@ -212,7 +212,7 @@ async function fetchDetail(id: number) {
 }
 .group-price {
   font-size: 40rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .original-price {
@@ -265,7 +265,7 @@ async function fetchDetail(id: number) {
   justify-content: center;
 }
 .step-dot.active {
-  background: #ff6600;
+  background: #E93323;
 }
 .step-dot-text {
   font-size: 24rpx;
@@ -281,11 +281,11 @@ async function fetchDetail(id: number) {
   margin: 0 8rpx;
 }
 .step-line.active {
-  background: #ff6600;
+  background: #E93323;
 }
 .progress-desc {
   font-size: 26rpx;
-  color: #ff6600;
+  color: #E93323;
   margin-top: 20rpx;
 }
 
@@ -337,7 +337,7 @@ async function fetchDetail(id: number) {
 }
 .group-countdown-text {
   font-size: 22rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 
 /* 活动详情 */
@@ -376,13 +376,13 @@ async function fetchDetail(id: number) {
 }
 .invite-btn {
   background: #fff;
-  border: 2rpx solid #ff6600;
+  border: 2rpx solid #E93323;
 }
 .invite-btn .bar-btn-text {
-  color: #ff6600;
+  color: #E93323;
 }
 .join-btn {
-  background: #ff6600;
+  background: #E93323;
 }
 .bar-btn-text {
   font-size: 28rpx;

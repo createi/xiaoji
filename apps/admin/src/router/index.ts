@@ -504,7 +504,7 @@ const routes: RouteRecordRaw[] = [
         path: 'system',
         name: 'System',
         redirect: '/system/log',
-        meta: { title: '系统管理', icon: 'ToolOutlined' },
+        meta: { title: '系统管理', icon: 'SettingOutlined' },
         children: [
           {
             path: 'log',
@@ -536,7 +536,7 @@ const routes: RouteRecordRaw[] = [
         path: 'app',
         name: 'AppManage',
         redirect: '/app/wechat/menus',
-        meta: { title: '应用管理', icon: 'MobileOutlined' },
+        meta: { title: '应用管理', icon: 'AppstoreOutlined' },
         children: [
           {
             path: 'wechat/menus',
@@ -574,25 +574,19 @@ const routes: RouteRecordRaw[] = [
         path: 'diy',
         name: 'DIY',
         redirect: '/diy/list',
-        meta: { title: 'DIY 页面', icon: 'AppstoreOutlined' },
+        meta: { title: '商城装修', icon: 'DashboardOutlined' },
         children: [
           {
             path: 'list',
             name: 'DiyList',
             component: () => import('@/views/diy/list/index.vue'),
-            meta: { title: '模板列表' },
+            meta: { title: '商城主题' },
           },
           {
             path: 'edit/:id?',
             name: 'DiyEdit',
             component: () => import('@/views/diy/edit/index.vue'),
             meta: { title: 'DIY 编辑器', hidden: true },
-          },
-          {
-            path: 'theme',
-            name: 'DiyTheme',
-            component: () => import('@/views/diy/theme/index.vue'),
-            meta: { title: '主题管理' },
           },
         ],
       },

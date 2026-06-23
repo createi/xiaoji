@@ -58,7 +58,7 @@
         <text class="form-label">设为默认地址</text>
         <switch
           :checked="form.is_default === 1"
-          color="#ff6600"
+          color="#E93323"
           @change="onSwitchChange"
         />
       </view>
@@ -279,7 +279,7 @@ async function handleSave() {
   width: 100%;
   height: 88rpx;
   line-height: 88rpx;
-  background-color: #ff6600;
+  background-color: #E93323;
   color: #fff;
   font-size: 32rpx;
   border-radius: 44rpx;

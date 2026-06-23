@@ -1,0 +1,248 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/goods_cate/index",
+      "style": {
+        "navigationBarTitleText": "分类"
+      }
+    },
+    {
+      "path": "pages/order_addcart/index",
+      "style": {
+        "navigationBarTitleText": "购物车"
+      }
+    },
+    {
+      "path": "pages/user/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "pages/goods_details",
+      "pages": [
+        {
+          "path": "index",
+          "style": {
+            "navigationBarTitleText": "商品详情"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/goods",
+      "pages": [
+        {
+          "path": "goods_list/index",
+          "style": {
+            "navigationBarTitleText": "商品列表"
+          }
+        },
+        {
+          "path": "goods_search/index",
+          "style": {
+            "navigationBarTitleText": "搜索"
+          }
+        },
+        {
+          "path": "order_confirm/index",
+          "style": {
+            "navigationBarTitleText": "确认订单"
+          }
+        },
+        {
+          "path": "order_details/index",
+          "style": {
+            "navigationBarTitleText": "订单详情"
+          }
+        },
+        {
+          "path": "order_list/index",
+          "style": {
+            "navigationBarTitleText": "我的订单"
+          }
+        },
+        {
+          "path": "cashier/index",
+          "style": {
+            "navigationBarTitleText": "收银台"
+          }
+        },
+        {
+          "path": "order_pay_status/index",
+          "style": {
+            "navigationBarTitleText": "支付结果"
+          }
+        },
+        {
+          "path": "goods_logistics/index",
+          "style": {
+            "navigationBarTitleText": "物流追踪"
+          }
+        },
+        {
+          "path": "goods_comment_list/index",
+          "style": {
+            "navigationBarTitleText": "商品评价"
+          }
+        },
+        {
+          "path": "goods_return/index",
+          "style": {
+            "navigationBarTitleText": "退款申请"
+          }
+        },
+        {
+          "path": "order_refund_goods/index",
+          "style": {
+            "navigationBarTitleText": "退货物流"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/users",
+      "pages": [
+        {
+          "path": "login/index",
+          "style": {
+            "navigationBarTitleText": "登录"
+          }
+        },
+        {
+          "path": "user_address_list/index",
+          "style": {
+            "navigationBarTitleText": "地址管理"
+          }
+        },
+        {
+          "path": "user_address/index",
+          "style": {
+            "navigationBarTitleText": "编辑地址"
+          }
+        },
+        {
+          "path": "user_sgin/index",
+          "style": {
+            "navigationBarTitleText": "每日签到"
+          }
+        },
+        {
+          "path": "user_integral/index",
+          "style": {
+            "navigationBarTitleText": "积分明细"
+          }
+        },
+        {
+          "path": "user_bill/index",
+          "style": {
+            "navigationBarTitleText": "账单"
+          }
+        },
+        {
+          "path": "user_extract/index",
+          "style": {
+            "navigationBarTitleText": "提现"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/activity",
+      "pages": [
+        {
+          "path": "goods_bargain_details/index",
+          "style": {
+            "navigationBarTitleText": "砍价详情"
+          }
+        },
+        {
+          "path": "goods_combination_details/index",
+          "style": {
+            "navigationBarTitleText": "拼团详情"
+          }
+        },
+        {
+          "path": "goods_seckill_details/index",
+          "style": {
+            "navigationBarTitleText": "秒杀详情"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/points_mall",
+      "pages": [
+        {
+          "path": "index",
+          "style": {
+            "navigationBarTitleText": "积分商城"
+          }
+        }
+      ]
+    },
+    {
+      "root": "pages/extension",
+      "pages": [
+        {
+          "path": "news_list/index",
+          "style": {
+            "navigationBarTitleText": "文章列表"
+          }
+        },
+        {
+          "path": "news_detail/index",
+          "style": {
+            "navigationBarTitleText": "文章详情"
+          }
+        }
+      ]
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "xiaoji",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColor": "#f5f5f5"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ff6600",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/tab/home.png",
+        "selectedIconPath": "static/tab/home-active.png"
+      },
+      {
+        "pagePath": "pages/goods_cate/index",
+        "text": "分类",
+        "iconPath": "static/tab/cate.png",
+        "selectedIconPath": "static/tab/cate-active.png"
+      },
+      {
+        "pagePath": "pages/order_addcart/index",
+        "text": "购物车",
+        "iconPath": "static/tab/cart.png",
+        "selectedIconPath": "static/tab/cart-active.png"
+      },
+      {
+        "pagePath": "pages/user/index",
+        "text": "我的",
+        "iconPath": "static/tab/user.png",
+        "selectedIconPath": "static/tab/user-active.png"
+      }
+    ]
+  }
+}

@@ -249,7 +249,7 @@ function goHome() {
   background: #07c160;
 }
 .method-icon.balance {
-  background: #ff6600;
+  background: #E93323;
 }
 .method-icon-text {
   font-size: 28rpx;
@@ -270,13 +270,13 @@ function goHome() {
   justify-content: center;
 }
 .method-radio.active {
-  border-color: #ff6600;
+  border-color: #E93323;
 }
 .method-radio-dot {
   width: 24rpx;
   height: 24rpx;
   border-radius: 50%;
-  background: #ff6600;
+  background: #E93323;
 }
 
 /* 确认支付按钮 */
@@ -288,7 +288,7 @@ function goHome() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 44rpx;
 }
 .pay-btn-text {
@@ -349,7 +349,7 @@ function goHome() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 36rpx;
 }
 .result-btn.outline {

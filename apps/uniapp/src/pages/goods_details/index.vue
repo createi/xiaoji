@@ -6,7 +6,7 @@
         class="swiper"
         indicator-dots
         indicator-color="rgba(255,255,255,0.4)"
-        indicator-active-color="#ff6600"
+        indicator-active-color="#E93323"
         :autoplay="false"
         circular
         :current="currentSwiper"
@@ -363,12 +363,12 @@ async function fetchDetail(id: number) {
 }
 .price-label {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .price-value {
   font-size: 48rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
   line-height: 1;
 }
@@ -518,11 +518,11 @@ async function fetchDetail(id: number) {
   border-radius: 36rpx;
 }
 .cart-btn {
-  background: #ff8533;
+  background: #f0684d;
   margin-right: 16rpx;
 }
 .buy-btn {
-  background: #ff6600;
+  background: #E93323;
 }
 .bar-btn-text {
   font-size: 28rpx;
@@ -579,7 +579,7 @@ async function fetchDetail(id: number) {
 }
 .sku-price {
   font-size: 36rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .sku-stock {
@@ -632,7 +632,7 @@ async function fetchDetail(id: number) {
   border: 2rpx solid transparent;
 }
 .sku-option.active {
-  border-color: #ff6600;
+  border-color: #E93323;
   background: #fff5f0;
 }
 .sku-option-text {
@@ -688,7 +688,7 @@ async function fetchDetail(id: number) {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 40rpx;
 }
 .sku-footer-btn-text {

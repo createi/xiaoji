@@ -234,12 +234,12 @@ async function fetchDetail(id: number) {
 }
 .price-sign {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .price-value {
   font-size: 44rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
   line-height: 1;
 }
@@ -254,7 +254,7 @@ async function fetchDetail(id: number) {
 }
 .bottom-price {
   font-size: 22rpx;
-  color: #ff6600;
+  color: #E93323;
   margin-top: 4rpx;
 }
 
@@ -293,7 +293,7 @@ async function fetchDetail(id: number) {
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ff6600, #ff8533);
+  background: linear-gradient(90deg, #E93323, #f0684d);
   border-radius: 8rpx;
   transition: width 0.3s ease;
 }
@@ -309,7 +309,7 @@ async function fetchDetail(id: number) {
 }
 .progress-desc {
   font-size: 24rpx;
-  color: #ff6600;
+  color: #E93323;
   text-align: center;
 }
 
@@ -354,7 +354,7 @@ async function fetchDetail(id: number) {
 }
 .help-amount {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
   flex-shrink: 0;
 }
@@ -423,7 +423,7 @@ async function fetchDetail(id: number) {
   border-radius: 36rpx;
 }
 .invite-btn {
-  background: #ff6600;
+  background: #E93323;
 }
 .bar-btn-text {
   font-size: 28rpx;

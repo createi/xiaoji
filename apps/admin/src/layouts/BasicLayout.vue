@@ -95,6 +95,8 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   LogoutOutlined,
+  AppstoreOutlined,
+  DashboardOutlined,
 } from '@ant-design/icons-vue';
 import { useAppStore } from '@/stores/app';
 import { useUserStore } from '@/stores/user';
@@ -116,6 +118,8 @@ const iconMap: Record<string, any> = {
   FileTextOutlined,
   BarChartOutlined,
   SettingOutlined,
+  AppstoreOutlined,
+  DashboardOutlined,
 };
 
 interface MenuItem {

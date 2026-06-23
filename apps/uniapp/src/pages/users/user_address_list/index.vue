@@ -176,7 +176,7 @@ import { onShow } from '@dcloudio/uni-app';
 }
 
 .default-badge {
-  background-color: #ff6600;
+  background-color: #E93323;
   border-radius: 6rpx;
   padding: 2rpx 10rpx;
 }
@@ -220,7 +220,7 @@ import { onShow } from '@dcloudio/uni-app';
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ff6600;
+  background-color: #E93323;
   border-radius: 44rpx;
 }
 

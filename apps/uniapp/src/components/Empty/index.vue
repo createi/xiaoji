@@ -31,7 +31,7 @@ defineEmits(['action']);
 .empty-action {
   margin-top: 30rpx;
   padding: 16rpx 40rpx;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 40rpx;
 }
 .empty-action-text {

@@ -28,8 +28,8 @@ const decimalPart = computed(() => {
 
 <style scoped>
 .price-display { display: flex; align-items: baseline; }
-.price-symbol { font-size: 24rpx; color: #ff6600; font-weight: bold; }
-.price-integer { font-size: 36rpx; color: #ff6600; font-weight: bold; line-height: 1; }
-.price-decimal { font-size: 24rpx; color: #ff6600; font-weight: bold; }
+.price-symbol { font-size: 24rpx; color: #E93323; font-weight: bold; }
+.price-integer { font-size: 36rpx; color: #E93323; font-weight: bold; line-height: 1; }
+.price-decimal { font-size: 24rpx; color: #E93323; font-weight: bold; }
 .price-ot { font-size: 22rpx; color: #999; text-decoration: line-through; margin-left: 10rpx; }
 </style>

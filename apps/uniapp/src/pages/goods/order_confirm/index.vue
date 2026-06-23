@@ -55,7 +55,7 @@
           class="integral-switch"
           :checked="useIntegral"
           :disabled="userIntegral <= 0"
-          color="#ff6600"
+          color="#E93323"
           @change="useIntegral = $event.detail.value"
         />
       </view>
@@ -431,7 +431,7 @@ async function submitOrder() {
 }
 .goods-price {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .goods-num {
@@ -509,7 +509,7 @@ async function submitOrder() {
   color: #333;
 }
 .summary-value.discount {
-  color: #ff6600;
+  color: #E93323;
 }
 .summary-divider {
   height: 1rpx;
@@ -518,7 +518,7 @@ async function submitOrder() {
 }
 .summary-total {
   font-size: 34rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 
@@ -549,7 +549,7 @@ async function submitOrder() {
 }
 .footer-price {
   font-size: 32rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
   margin-right: 20rpx;
 }
@@ -559,7 +559,7 @@ async function submitOrder() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 34rpx;
 }
 .footer-btn-text {
@@ -632,7 +632,7 @@ async function submitOrder() {
   border: 2rpx solid transparent;
 }
 .coupon-item.active {
-  border-color: #ff6600;
+  border-color: #E93323;
 }
 .coupon-item.disabled {
   opacity: 0.5;
@@ -646,7 +646,7 @@ async function submitOrder() {
 }
 .coupon-value {
   font-size: 36rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .coupon-condition {
@@ -675,7 +675,7 @@ async function submitOrder() {
 }
 .coupon-check-icon {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 .coupon-empty {
   padding: 40rpx 0;
@@ -691,7 +691,7 @@ async function submitOrder() {
 }
 .coupon-no-use-text {
   font-size: 26rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 
 .safe-bottom {

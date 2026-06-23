@@ -228,7 +228,7 @@ onUnmounted(() => {
 
 /* 倒计时 */
 .countdown-section {
-  background: linear-gradient(135deg, #ff6600, #ff8533);
+  background: linear-gradient(135deg, #E93323, #f0684d);
   padding: 32rpx 24rpx;
 }
 .countdown-header {
@@ -322,7 +322,7 @@ onUnmounted(() => {
 }
 .seckill-price {
   font-size: 40rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .original-price {
@@ -345,7 +345,7 @@ onUnmounted(() => {
 }
 .progress-text {
   font-size: 24rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 .progress-remain {
   font-size: 24rpx;
@@ -359,7 +359,7 @@ onUnmounted(() => {
 }
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #ff6600, #ff8533);
+  background: linear-gradient(90deg, #E93323, #f0684d);
   border-radius: 8rpx;
   transition: width 0.3s ease;
 }
@@ -410,7 +410,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 36rpx;
 }
 .bar-btn.disabled {

@@ -124,7 +124,7 @@ function handleRegister() {
   width: 160rpx;
   height: 160rpx;
   border-radius: 32rpx;
-  background-color: #ff6600;
+  background-color: #E93323;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,7 +194,7 @@ function handleRegister() {
   width: 100%;
   height: 90rpx;
   line-height: 90rpx;
-  background-color: #ff6600;
+  background-color: #E93323;
   color: #fff;
   font-size: 32rpx;
   border-radius: 45rpx;
@@ -215,7 +215,7 @@ function handleRegister() {
 
 .link-text {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 
 .link-divider {

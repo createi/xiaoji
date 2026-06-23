@@ -130,7 +130,7 @@ import { onShow, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app';
   flex-direction: column;
   align-items: center;
   padding: 60rpx 30rpx;
-  background: linear-gradient(135deg, #ff6600, #ff8533);
+  background: linear-gradient(135deg, #E93323, #f0684d);
 }
 
 .balance-label {
@@ -216,7 +216,7 @@ import { onShow, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app';
 }
 
 .item-amount.positive {
-  color: #ff6600;
+  color: #E93323;
 }
 
 .item-amount.negative {
@@ -231,7 +231,7 @@ import { onShow, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app';
 
 .load-more-text {
   font-size: 26rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 
 .no-more {

@@ -47,10 +47,10 @@ onLoad(() => {});
 .timeline-item { display: flex; padding: 20rpx 0; border-bottom: 1rpx solid #f5f5f5; }
 .timeline-item:last-child { border-bottom: none; }
 .dot { width: 16rpx; height: 16rpx; border-radius: 50%; background: #ddd; margin-right: 20rpx; margin-top: 8rpx; flex-shrink: 0; }
-.timeline-item.active .dot { background: #ff6600; }
+.timeline-item.active .dot { background: #E93323; }
 .content { flex: 1; }
 .text { font-size: 26rpx; color: #333; display: block; }
-.timeline-item.active .text { color: #ff6600; }
+.timeline-item.active .text { color: #E93323; }
 .time { font-size: 22rpx; color: #999; margin-top: 8rpx; display: block; }
 .empty { padding: 120rpx 0; text-align: center; }
 .empty-text { font-size: 28rpx; color: #999; }

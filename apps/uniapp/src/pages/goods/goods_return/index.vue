@@ -99,11 +99,11 @@ function handleSubmit() {
 .product-detail { flex: 1; }
 .product-name { font-size: 26rpx; color: #333; display: block; }
 .product-spec { font-size: 22rpx; color: #999; margin-top: 8rpx; display: block; }
-.product-price { font-size: 28rpx; color: #ff6600; font-weight: bold; margin-top: 12rpx; display: block; }
+.product-price { font-size: 28rpx; color: #E93323; font-weight: bold; margin-top: 12rpx; display: block; }
 .reason-list { }
 .reason-item { display: flex; justify-content: space-between; align-items: center; padding: 20rpx 0; border-bottom: 1rpx solid #f5f5f5; font-size: 26rpx; color: #333; }
-.reason-item.active { color: #ff6600; }
-.check { color: #ff6600; font-weight: bold; }
+.reason-item.active { color: #E93323; }
+.check { color: #E93323; font-weight: bold; }
 .textarea { width: 100%; height: 200rpx; font-size: 26rpx; padding: 16rpx; border: 1rpx solid #eee; border-radius: 8rpx; box-sizing: border-box; }
 .upload-list { display: flex; gap: 16rpx; flex-wrap: wrap; }
 .upload-item { position: relative; }
@@ -112,6 +112,6 @@ function handleSubmit() {
 .upload-add { width: 140rpx; height: 140rpx; border: 2rpx dashed #ddd; border-radius: 8rpx; display: flex; align-items: center; justify-content: center; }
 .upload-add-text { font-size: 48rpx; color: #999; }
 .submit-wrap { position: fixed; bottom: 0; left: 0; right: 0; padding: 24rpx; background: #fff; }
-.submit-btn { height: 88rpx; display: flex; align-items: center; justify-content: center; background: #ff6600; border-radius: 44rpx; }
+.submit-btn { height: 88rpx; display: flex; align-items: center; justify-content: center; background: #E93323; border-radius: 44rpx; }
 .submit-text { font-size: 32rpx; color: #fff; font-weight: bold; }
 </style>

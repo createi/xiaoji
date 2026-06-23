@@ -217,7 +217,7 @@ onReachBottom(() => {
 }
 .search-btn {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
   margin-left: 20rpx;
   flex-shrink: 0;
 }
@@ -269,7 +269,7 @@ onReachBottom(() => {
   color: #666;
 }
 .tag-item.hot .tag-text {
-  color: #ff6600;
+  color: #E93323;
 }
 
 /* 搜索结果 */

@@ -227,7 +227,7 @@ import { onShow } from '@dcloudio/uni-app';
 }
 
 .tab-item.active .tab-text {
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 
@@ -237,7 +237,7 @@ import { onShow } from '@dcloudio/uni-app';
   width: 48rpx;
   height: 6rpx;
   border-radius: 3rpx;
-  background-color: #ff6600;
+  background-color: #E93323;
 }
 
 .order-scroll {
@@ -297,7 +297,7 @@ import { onShow } from '@dcloudio/uni-app';
 }
 
 .status-0 {
-  color: #ff6600;
+  color: #E93323;
 }
 
 .status-1 {
@@ -381,7 +381,7 @@ import { onShow } from '@dcloudio/uni-app';
 }
 
 .total-price {
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
   font-size: 30rpx;
 }
@@ -394,7 +394,7 @@ import { onShow } from '@dcloudio/uni-app';
 
 .load-more-text {
   font-size: 26rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 
 .no-more {

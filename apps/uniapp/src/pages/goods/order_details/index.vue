@@ -225,7 +225,7 @@ onLoad((options: any) => {
 
 .status-header {
   padding: 40rpx 30rpx;
-  background: linear-gradient(135deg, #ff6600, #ff8533);
+  background: linear-gradient(135deg, #E93323, #f0684d);
   display: flex;
   flex-direction: column;
 }
@@ -363,7 +363,7 @@ onLoad((options: any) => {
 }
 
 .price-value.coupon {
-  color: #ff6600;
+  color: #E93323;
 }
 
 .total-row {
@@ -379,7 +379,7 @@ onLoad((options: any) => {
 
 .price-total {
   font-size: 32rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 
@@ -421,7 +421,7 @@ onLoad((options: any) => {
 }
 
 .confirm-btn {
-  background-color: #ff6600;
+  background-color: #E93323;
 }
 
 .action-btn-text {

@@ -122,7 +122,7 @@ watch(() => props.visible, (val) => {
 .sku-image { width: 160rpx; height: 160rpx; border-radius: 8rpx; margin-right: 20rpx; }
 .sku-info { flex: 1; }
 .sku-price-row { display: flex; align-items: baseline; }
-.sku-price { font-size: 36rpx; color: #ff6600; font-weight: bold; }
+.sku-price { font-size: 36rpx; color: #E93323; font-weight: bold; }
 .sku-ot-price { font-size: 22rpx; color: #999; text-decoration: line-through; margin-left: 10rpx; }
 .sku-stock { font-size: 24rpx; color: #999; margin-top: 8rpx; display: block; }
 .sku-selected { font-size: 24rpx; color: #666; margin-top: 8rpx; display: block; }
@@ -132,7 +132,7 @@ watch(() => props.visible, (val) => {
 .attr-name { font-size: 28rpx; font-weight: bold; color: #333; margin-bottom: 12rpx; display: block; }
 .attr-values { display: flex; flex-wrap: wrap; gap: 16rpx; }
 .attr-value { padding: 12rpx 24rpx; background: #f5f5f5; border-radius: 8rpx; font-size: 26rpx; color: #333; }
-.attr-value.active { background: #fff7f0; color: #ff6600; border: 2rpx solid #ff6600; }
+.attr-value.active { background: #fff7f0; color: #E93323; border: 2rpx solid #E93323; }
 .attr-value.disabled { color: #ccc; }
 .sku.quantity { display: flex; justify-content: space-between; align-items: center; padding: 24rpx; border-top: 1rpx solid #f0f0f0; }
 .quantity-label { font-size: 28rpx; font-weight: bold; color: #333; }
@@ -141,7 +141,7 @@ watch(() => props.visible, (val) => {
 .qty-value { width: 80rpx; text-align: center; font-size: 28rpx; }
 .sku-footer { display: flex; padding: 24rpx; gap: 16rpx; border-top: 1rpx solid #f0f0f0; }
 .sku-btn { flex: 1; height: 80rpx; display: flex; align-items: center; justify-content: center; border-radius: 40rpx; }
-.sku-btn.cart { background: #ff8533; }
-.sku-btn.buy { background: #ff6600; }
+.sku-btn.cart { background: #f0684d; }
+.sku-btn.buy { background: #E93323; }
 .btn-text { font-size: 28rpx; color: #fff; font-weight: bold; }
 </style>

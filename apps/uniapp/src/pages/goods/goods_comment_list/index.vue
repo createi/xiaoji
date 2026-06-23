@@ -51,7 +51,7 @@ function previewImage(index: number, urls: string[]) {
 .nickname { font-size: 26rpx; color: #333; }
 .stars { margin-top: 4rpx; }
 .star { font-size: 24rpx; color: #ddd; }
-.star.active { color: #ff6600; }
+.star.active { color: #E93323; }
 .time { font-size: 22rpx; color: #999; }
 .content { font-size: 26rpx; color: #333; margin-top: 16rpx; line-height: 1.6; }
 .pics { display: flex; gap: 12rpx; margin-top: 16rpx; flex-wrap: wrap; }

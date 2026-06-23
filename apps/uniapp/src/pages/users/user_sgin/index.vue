@@ -137,7 +137,7 @@ import { onShow } from '@dcloudio/uni-app';
   align-items: center;
   justify-content: space-between;
   padding: 40rpx 30rpx;
-  background: linear-gradient(135deg, #ff6600, #ff8533);
+  background: linear-gradient(135deg, #E93323, #f0684d);
 }
 
 .sign-info {
@@ -183,7 +183,7 @@ import { onShow } from '@dcloudio/uni-app';
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ff6600;
+  background-color: #E93323;
   border-radius: 45rpx;
 }
 
@@ -258,7 +258,7 @@ import { onShow } from '@dcloudio/uni-app';
 
 .history-integral {
   font-size: 24rpx;
-  color: #ff6600;
+  color: #E93323;
   margin-top: 6rpx;
 }
 
@@ -266,7 +266,7 @@ import { onShow } from '@dcloudio/uni-app';
   width: 48rpx;
   height: 48rpx;
   border-radius: 50%;
-  background-color: #ff6600;
+  background-color: #E93323;
   display: flex;
   align-items: center;
   justify-content: center;

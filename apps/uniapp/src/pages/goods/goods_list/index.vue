@@ -189,7 +189,7 @@ fetchProducts(true);
 /* 搜索栏 */
 .search-bar {
   padding: 16rpx 24rpx;
-  background: #ff6600;
+  background: #E93323;
 }
 .search-inner {
   display: flex;
@@ -226,7 +226,7 @@ fetchProducts(true);
   flex-shrink: 0;
 }
 .cate-item.active {
-  background: #ff6600;
+  background: #E93323;
 }
 .cate-text {
   font-size: 24rpx;
@@ -256,7 +256,7 @@ fetchProducts(true);
   color: #666;
 }
 .sort-item.active .sort-text {
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .sort-arrows {
@@ -270,7 +270,7 @@ fetchProducts(true);
   line-height: 14rpx;
 }
 .sort-arrow.active {
-  color: #ff6600;
+  color: #E93323;
 }
 
 /* 商品网格 */

@@ -225,7 +225,7 @@ onShow(() => {
 }
 .header-action {
   font-size: 28rpx;
-  color: #ff6600;
+  color: #E93323;
 }
 
 /* 购物车列表 */
@@ -254,8 +254,8 @@ onShow(() => {
   flex-shrink: 0;
 }
 .checkbox.checked {
-  background: #ff6600;
-  border-color: #ff6600;
+  background: #E93323;
+  border-color: #E93323;
 }
 .checkbox-icon {
   font-size: 24rpx;
@@ -306,7 +306,7 @@ onShow(() => {
 }
 .cart-price {
   font-size: 30rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 
@@ -390,7 +390,7 @@ onShow(() => {
 }
 .footer-price {
   font-size: 32rpx;
-  color: #ff6600;
+  color: #E93323;
   font-weight: bold;
 }
 .footer-btn {
@@ -399,7 +399,7 @@ onShow(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ff6600;
+  background: #E93323;
   border-radius: 34rpx;
 }
 .footer-btn.disabled {

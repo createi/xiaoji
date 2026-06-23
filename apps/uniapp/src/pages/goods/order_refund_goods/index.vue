@@ -66,6 +66,6 @@ function handleSubmit() {
 .arrow { color: #999; }
 .input { flex: 1; font-size: 26rpx; text-align: right; }
 .submit-wrap { position: fixed; bottom: 0; left: 0; right: 0; padding: 24rpx; background: #fff; }
-.submit-btn { height: 88rpx; display: flex; align-items: center; justify-content: center; background: #ff6600; border-radius: 44rpx; }
+.submit-btn { height: 88rpx; display: flex; align-items: center; justify-content: center; background: #E93323; border-radius: 44rpx; }
 .submit-text { font-size: 32rpx; color: #fff; font-weight: bold; }
 </style>
